@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iCObrain-DM Brain Report</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        .report-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .report-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .report-header h1 {
+            color: #333;
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .report-header p {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .report-section {
+            margin-bottom: 30px;
+        }
+
+        .report-section h2 {
+            color: #333;
+            font-size: 1.5em;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .report-section p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .report-section ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+
+        .report-footer {
+            text-align: right;
+            font-size: 0.8em;
+            color: #666;
+        }
+
+        .report-footer p {
+            margin: 0;
+        }
+
+        .report-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+
+        .report-table th,
+        .report-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        .report-table th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="report-container">
+        <div class="report-header">
+            <h1>iCObrain-DM Brain Report</h1>
+            <p>Patient ID: 123456</p>
+            <p>Report Date: January 1, 2023</p>
+        </div>
+        <div class="report-section">
+            <h2>Patient Information</h2>
+            <p>Name: John Doe</p>
+            <p>Age: 45</p>
+            <p>Gender: Male</p>
+            <p>Referring Physician: Dr. Jane Smith</p>
+        </div>
+        <div class="report-section">
+            <h2>Imaging Details</h2>
+            <p>Scan Type: MRI</p>
+            <p>Scan Date: December 31, 2022</p>
+            <p>Scanning Facility: iCObrain-DM Imaging Center</p>
+            <div class="report-section">
+                <h2>Brain Lobes and Cerebellum Volumes</h2>
+                <table class="report-table">
+                    <thead>
+                        <tr>
+                            <th>Region</th>
+                            <th>Volume (mm³)</th>
+                            <th>Normal Range (mm³)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Frontal Lobe</td>
+                            <td>50014</td>
+                            <td>211,000 - 263,000</td>
+                        </tr>
+                        <tr>
+                            <td>Parietal Lobe</td>
+                            <td>32475</td>
+                            <td>138,000 - 173,000</td>
+                        </tr>
+                        <tr>
+                            <td>Temporal Lobe</td>
+                            <td>36701</td>
+                            <td>128,000 - 163,000</td>
+                        </tr>
+                        <tr>
+                            <td>Occipital Lobe</td>
+                            <td>18985</td>
+                            <td>59,000 - 85,000</td>
+                        </tr>
+                        <tr>
+                            <td>Hippocampi (Combined)</td>
+                            <td>NA</td>
+                            <td>15,400 - 21,600</td>
+                        </tr>
+                        <tr>
+                            <td>Cerebellum (Left)</td>
+                            <td>13256.9 (White Matter), 54126.7 (Cortex)</td>
+                            <td>80,000 - 120,000</td>
+                        </tr>
+                        <tr>
+                            <td>Cerebellum (Right)</td>
+                            <td>20514.6 (White Matter), 51024.1 (Cortex)</td>
+                            <td>80,000 - 120,000</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div style="width: 400px; height: 400px;"><canvas id="radar"></canvas></div>
+
+        <!-- <script type="module" src="dimensions.js"></script> -->
+        <script type="module" src="radar.js"></script>
+        <div class="report-section">
+            <h2>Findings</h2>
+            <p>The MRI scans reveal the following:</p>
+            <ul>
+                <li>No evidence of intracranial hemorrhage.</li>
+                <li>The ventricles are within normal limits.</li>
+                <li>There is no mass effect or midline shift.</li>
+            </ul>
+        </div>
+        <div class="report-section">
+            <h2>Conclusion</h2>
+            <p>Based on the current imaging and analysis, the patient's brain appears to be within normal parameters. No
+                immediate medical intervention is recommended.</p>
+        </div>
+        <div class="report-footer">
+            <p>Prepared by: Dr. Jane Smith</p>
+            <p>Neurologist, iCObrain-DM Center</p>
+        </div>
+    </div>
+</body>
+
+</html>
