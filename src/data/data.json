@@ -1,5 +1,53 @@
-[
-    {"x": 1, "y": 1},
-    {"x": 2, "y": 2},
-    {"x": 3, "y": 3}
-]
+{
+    "patient_id": "123456",
+    "report_date": "January 1, 2023",
+    "patient_info": {
+        "name": "John Doe",
+        "age": 45,
+        "gender": "Male",
+        "referring_physician": "Dr. Jane Smith"
+    },
+    "imaging_details": {
+        "scan_type": "MRI",
+        "scan_date": "December 31, 2022",
+        "scanning_facility": "iCObrain-DM Imaging Center"
+    },
+    "regions": [
+        {
+            "name": "Frontal Lobe",
+            "volume": 50014,
+            "normal_range": "211,000 - 263,000"
+        },
+        {
+            "name": "Parietal Lobe",
+            "volume": 32475,
+            "normal_range": "138,000 - 173,000"
+        },
+        {
+            "name": "Temporal Lobe",
+            "volume": 36701,
+            "normal_range": "128,000 - 163,000"
+        },
+        {
+            "name": "Occipital Lobe",
+            "volume": 18985,
+            "normal_range": "59,000 - 85,000"
+        },
+        {
+            "name": "Hippocampi (Combined)",
+            "volume": "NA",
+            "normal_range": "15,400 - 21,600"
+        },
+        {
+            "name": "Cerebellum (Left)",
+            "volume": "13256.9 (White Matter), 54126.7 (Cortex)",
+            "normal_range": "80,000 - 120,000"
+        },
+        {
+            "name": "Cerebellum (Right)",
+            "volume": "20514.6 (White Matter), 51024.1 (Cortex)",
+            "normal_range": "80,000 - 120,000"
+        }
+    ],
+    "prepared_by": "Dr. Jane Smith"
+}

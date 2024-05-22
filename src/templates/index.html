@@ -79,21 +79,21 @@
     <div class="report-container">
         <div class="report-header">
             <h1>iCObrain-DM Brain Report</h1>
-            <p>Patient ID: 123456</p>
-            <p>Report Date: January 1, 2023</p>
+            <p>Patient ID: {{ data.patient_id }}</p>
+            <p>Report Date: {{ data.report_date }}</p>
         </div>
         <div class="report-section">
             <h2>Patient Information</h2>
-            <p>Name: John Doe</p>
-            <p>Age: 45</p>
-            <p>Gender: Male</p>
-            <p>Referring Physician: Dr. Jane Smith</p>
+            <p>Name: {{ data.patient_info.name }}</p>
+            <p>Age: {{ data.patient_info.age }}</p>
+            <p>Gender: {{ data.patient_info.gender }}</p>
+            <p>Referring Physician: {{ data.patient_info.referring_physician }}</p>
         </div>
         <div class="report-section">
             <h2>Imaging Details</h2>
-            <p>Scan Type: MRI</p>
-            <p>Scan Date: December 31, 2022</p>
-            <p>Scanning Facility: iCObrain-DM Imaging Center</p>
+            <p>Scan Type: {{ data.imaging_details.scan_type }}</p>
+            <p>Scan Date: {{ data.imaging_details.scan_date }}</p>
+            <p>Scanning Facility: {{ data.imaging_details.scanning_facility }}</p>
         </div>
         <div class="report-section">
             <h2>Brain Lobes and Cerebellum Volumes</h2>
@@ -106,53 +106,18 @@
                     </tr>
                 </thead>
                 <tbody>
-                    
+                    {% for region in data.regions %}
                     <tr>
-                        <td>Frontal Lobe</td>
-                        <td>50014</td>
-                        <td>211,000 - 263,000</td>
+                        <td>{{ region.name }}</td>
+                        <td>{{ region.volume }}</td>
+                        <td>{{ region.normal_range }}</td>
                     </tr>
-                    
-                    <tr>
-                        <td>Parietal Lobe</td>
-                        <td>32475</td>
-                        <td>138,000 - 173,000</td>
-                    </tr>
-                    
-                    <tr>
-                        <td>Temporal Lobe</td>
-                        <td>36701</td>
-                        <td>128,000 - 163,000</td>
-                    </tr>
-                    
-                    <tr>
-                        <td>Occipital Lobe</td>
-                        <td>18985</td>
-                        <td>59,000 - 85,000</td>
-                    </tr>
-                    
-                    <tr>
-                        <td>Hippocampi (Combined)</td>
-                        <td>NA</td>
-                        <td>15,400 - 21,600</td>
-                    </tr>
-                    
-                    <tr>
-                        <td>Cerebellum (Left)</td>
-                        <td>13256.9 (White Matter), 54126.7 (Cortex)</td>
-                        <td>80,000 - 120,000</td>
-                    </tr>
-                    
-                    <tr>
-                        <td>Cerebellum (Right)</td>
-                        <td>20514.6 (White Matter), 51024.1 (Cortex)</td>
-                        <td>80,000 - 120,000</td>
-                    </tr>
-                    
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
         <div style="width: 400px; height: 400px;"><canvas id="radar"></canvas></div>
+        <script type="text/javascript" src="chartjs-plugin-datasource.js"></script>
         <script type="module" src="radar.js"></script>
         <div class="report-section">
             <h2>Findings</h2>
@@ -168,7 +133,7 @@
             <p>Based on the current imaging and analysis, the patient's brain appears to be within normal parameters. No immediate medical intervention is recommended.</p>
         </div>
         <div class="report-footer">
-            <p>Prepared by: Dr. Jane Smith</p>
+            <p>Prepared by: {{ data.prepared_by }}</p>
             <p>Neurologist, iCObrain-DM Center</p>
         </div>
     </div>
