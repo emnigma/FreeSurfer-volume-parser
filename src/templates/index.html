@@ -135,7 +135,7 @@
         </div>
         <div style="width: 400px; height: 400px;"><canvas id="radar"></canvas></div>
         <script type="module">
-            import Chart from 'chart.js/auto'
+            import Chart from 'chart.js/auto';
             (async function () {
                 const data = {
                     labels: [
@@ -144,9 +144,9 @@
                     ],
                     datasets: [
                         {
-                            label: 'Volume signature (norm %)',
+                            label: 'Volume signature (%)',
                             data: [
-                                {% for region in data.regions %}{{ region.volume }},
+                                {% for region in data.regions %}{{ (region.volume / (region.normal_range_max - region.normal_range_min) * 100)|round(2) }},
                                 {% endfor %}
                             ],
                             fill: true,
@@ -158,9 +158,9 @@
                             pointHoverBorderColor: 'rgb(0, 0, 255)'
                         },
                         {
-                            label: 'Minimal range (norm %)',
+                            label: 'Minimal range (%)',
                             data: [
-                                {% for region in data.regions %}{{ region.normal_range_min }},
+                                {% for region in data.regions %}{{ (region.normal_range_min / (region.normal_range_max - region.normal_range_min) * 100)|round(2) }},
                                 {% endfor %}
                             ],
                             fill: true,
@@ -172,9 +172,9 @@
                             pointHoverBorderColor: 'rgb(255, 0, 0)'
                         },
                         {
-                            label: 'Maximal range (norm %)',
+                            label: 'Maximal range (%)',
                             data: [
-                                {% for region in data.regions %}{{ region.normal_range_max }},
+                                {% for region in data.regions %}{{ (region.normal_range_max / (region.normal_range_max - region.normal_range_min) * 100)|round(2) }},
                                 {% endfor %}
                             ],
                             fill: true,
@@ -204,8 +204,13 @@
                                     angleLines: {
                                         display: false
                                     },
-                                    suggestedMin: 40,
-                                    suggestedMax: 100
+                                    suggestedMin: 0,
+                                    suggestedMax: 100,
+                                    ticks: {
+                                        callback: function(value, index, values) {
+                                            return value + '%';
+                                        }
+                                    }
                                 }
                             },
                             chartArea: { backgroundColor: 'red' },
@@ -213,8 +218,6 @@
                     }
                 );
             })();
-
-        </script>
         </script>
         <div class="report-section">
             <h2>Findings</h2>

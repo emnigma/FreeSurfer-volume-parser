@@ -177,7 +177,7 @@
         </div>
         <div style="width: 400px; height: 400px;"><canvas id="radar"></canvas></div>
         <script type="module">
-            import Chart from 'chart.js/auto'
+            import Chart from 'chart.js/auto';
             (async function () {
                 const data = {
                     labels: [
@@ -192,15 +192,15 @@
                     ],
                     datasets: [
                         {
-                            label: 'Volume signature (norm %)',
+                            label: 'Volume signature (%)',
                             data: [
-                                50014,
-                                32475,
-                                36701,
-                                18985,
-                                13450,
-                                67383.6,
-                                71538.7,
+                                96.18,
+                                92.79,
+                                104.86,
+                                73.02,
+                                216.94,
+                                168.46,
+                                178.85,
                                 
                             ],
                             fill: true,
@@ -212,15 +212,15 @@
                             pointHoverBorderColor: 'rgb(0, 0, 255)'
                         },
                         {
-                            label: 'Minimal range (norm %)',
+                            label: 'Minimal range (%)',
                             data: [
-                                211000,
-                                138000,
-                                128000,
-                                59000,
-                                15400,
-                                80000,
-                                80000,
+                                405.77,
+                                394.29,
+                                365.71,
+                                226.92,
+                                248.39,
+                                200.0,
+                                200.0,
                                 
                             ],
                             fill: true,
@@ -232,15 +232,15 @@
                             pointHoverBorderColor: 'rgb(255, 0, 0)'
                         },
                         {
-                            label: 'Maximal range (norm %)',
+                            label: 'Maximal range (%)',
                             data: [
-                                263000,
-                                173000,
-                                163000,
-                                85000,
-                                21600,
-                                120000,
-                                120000,
+                                505.77,
+                                494.29,
+                                465.71,
+                                326.92,
+                                348.39,
+                                300.0,
+                                300.0,
                                 
                             ],
                             fill: true,
@@ -270,8 +270,13 @@
                                     angleLines: {
                                         display: false
                                     },
-                                    suggestedMin: 40,
-                                    suggestedMax: 100
+                                    suggestedMin: 0,
+                                    suggestedMax: 100,
+                                    ticks: {
+                                        callback: function(value, index, values) {
+                                            return value + '%';
+                                        }
+                                    }
                                 }
                             },
                             chartArea: { backgroundColor: 'red' },
@@ -279,8 +284,6 @@
                     }
                 );
             })();
-
-        </script>
         </script>
         <div class="report-section">
             <h2>Findings</h2>
