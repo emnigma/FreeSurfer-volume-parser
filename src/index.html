@@ -175,8 +175,15 @@
                 </tbody>
             </table>
         </div>
-        <div style="width: 400px; height: 400px;"><canvas id="radar"></canvas></div>
+        <div style="width: 600px; height: 600px; margin:0 auto;"><canvas id="radar"></canvas></div>
         <script type="module">
+            var super$setLineDash = CanvasRenderingContext2D.prototype.setLineDash;
+            CanvasRenderingContext2D.prototype.setLineDash = function override$setLineDash(segments) {
+                if (segments.length === 0) {
+                    segments = [0];
+                }
+                super$setLineDash.bind(this)(segments);
+            };
             import Chart from 'chart.js/auto';
             (async function () {
                 const data = {
@@ -194,53 +201,53 @@
                         {
                             label: 'Volume signature (%)',
                             data: [
-                                96.18,
-                                92.79,
-                                104.86,
-                                73.02,
-                                216.94,
-                                168.46,
-                                178.85,
+                                19.02,
+                                18.77,
+                                22.52,
+                                22.34,
+                                62.27,
+                                56.15,
+                                59.62,
                                 
                             ],
                             fill: true,
-                            backgroundColor: 'rgba(0, 0, 255, 0.2)',
-                            borderColor: 'rgb(0, 0, 255)',
-                            pointBackgroundColor: 'rgb(0, 0, 255)',
+                            // backgroundColor: 'rgba(0, 0, 255, 0.2)',
+                            borderColor: 'rgb(0, 0, 0)',
+                            pointBackgroundColor: 'rgb(0, 0, 0)',
                             pointBorderColor: '#fff',
                             pointHoverBackgroundColor: '#fff',
-                            pointHoverBorderColor: 'rgb(0, 0, 255)'
+                            pointHoverBorderColor: 'rgb(0, 0, 0)'
                         },
                         {
                             label: 'Minimal range (%)',
                             data: [
-                                405.77,
-                                394.29,
-                                365.71,
-                                226.92,
-                                248.39,
-                                200.0,
-                                200.0,
+                                80.23,
+                                79.77,
+                                78.53,
+                                69.41,
+                                71.3,
+                                66.67,
+                                66.67,
                                 
                             ],
                             fill: true,
-                            backgroundColor: 'rgba(255, 0, 0, 0.2)',
-                            borderColor: 'rgb(255, 0, 0)',
-                            pointBackgroundColor: 'rgb(255, 0, 0)',
+                            backgroundColor: 'rgba(255, 255, 0, 0.2)', // Yellow color for min values
+                            borderColor: 'rgb(255, 255, 0)',
+                            pointBackgroundColor: 'rgb(255, 255, 0)',
                             pointBorderColor: '#fff',
                             pointHoverBackgroundColor: '#fff',
-                            pointHoverBorderColor: 'rgb(255, 0, 0)'
+                            pointHoverBorderColor: 'rgb(255, 255, 0)'
                         },
                         {
                             label: 'Maximal range (%)',
                             data: [
-                                505.77,
-                                494.29,
-                                465.71,
-                                326.92,
-                                348.39,
-                                300.0,
-                                300.0,
+                                100.0,
+                                100.0,
+                                100.0,
+                                100.0,
+                                100.0,
+                                100.0,
+                                100.0,
                                 
                             ],
                             fill: true,
@@ -250,6 +257,26 @@
                             pointBorderColor: '#fff',
                             pointHoverBackgroundColor: '#fff',
                             pointHoverBorderColor: 'rgb(0, 128, 0)'
+                        },
+                        {
+                            label: 'Alert range (%)',
+                            data: [
+                                20,
+                                20,
+                                20,
+                                20,
+                                20,
+                                20,
+                                20,
+                                
+                            ],
+                            fill: true,
+                            backgroundColor: 'rgba(255, 0, 0, 0.2)', // Red color for values less than 10% of max
+                            borderColor: 'rgb(255, 0, 0)',
+                            pointBackgroundColor: 'rgb(255, 0, 0)',
+                            pointBorderColor: '#fff',
+                            pointHoverBackgroundColor: '#fff',
+                            pointHoverBorderColor: 'rgb(255, 0, 0)'
                         }
                     ]
                 };

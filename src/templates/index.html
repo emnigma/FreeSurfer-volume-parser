@@ -133,8 +133,15 @@
                 </tbody>
             </table>
         </div>
-        <div style="width: 400px; height: 400px;"><canvas id="radar"></canvas></div>
+        <div style="width: 600px; height: 600px; margin:0 auto;"><canvas id="radar"></canvas></div>
         <script type="module">
+            var super$setLineDash = CanvasRenderingContext2D.prototype.setLineDash;
+            CanvasRenderingContext2D.prototype.setLineDash = function override$setLineDash(segments) {
+                if (segments.length === 0) {
+                    segments = [0];
+                }
+                super$setLineDash.bind(this)(segments);
+            };
             import Chart from 'chart.js/auto';
             (async function () {
                 const data = {
@@ -146,35 +153,35 @@
                         {
                             label: 'Volume signature (%)',
                             data: [
-                                {% for region in data.regions %}{{ (region.volume / (region.normal_range_max - region.normal_range_min) * 100)|round(2) }},
+                                {% for region in data.regions %}{{ (region.volume / region.normal_range_max * 100)|round(2) }},
                                 {% endfor %}
                             ],
                             fill: true,
-                            backgroundColor: 'rgba(0, 0, 255, 0.2)',
-                            borderColor: 'rgb(0, 0, 255)',
-                            pointBackgroundColor: 'rgb(0, 0, 255)',
+                            // backgroundColor: 'rgba(0, 0, 255, 0.2)',
+                            borderColor: 'rgb(0, 0, 0)',
+                            pointBackgroundColor: 'rgb(0, 0, 0)',
                             pointBorderColor: '#fff',
                             pointHoverBackgroundColor: '#fff',
-                            pointHoverBorderColor: 'rgb(0, 0, 255)'
+                            pointHoverBorderColor: 'rgb(0, 0, 0)'
                         },
                         {
                             label: 'Minimal range (%)',
                             data: [
-                                {% for region in data.regions %}{{ (region.normal_range_min / (region.normal_range_max - region.normal_range_min) * 100)|round(2) }},
+                                {% for region in data.regions %}{{ (region.normal_range_min / region.normal_range_max * 100)|round(2) }},
                                 {% endfor %}
                             ],
                             fill: true,
-                            backgroundColor: 'rgba(255, 0, 0, 0.2)',
-                            borderColor: 'rgb(255, 0, 0)',
-                            pointBackgroundColor: 'rgb(255, 0, 0)',
+                            backgroundColor: 'rgba(255, 255, 0, 0.2)', // Yellow color for min values
+                            borderColor: 'rgb(255, 255, 0)',
+                            pointBackgroundColor: 'rgb(255, 255, 0)',
                             pointBorderColor: '#fff',
                             pointHoverBackgroundColor: '#fff',
-                            pointHoverBorderColor: 'rgb(255, 0, 0)'
+                            pointHoverBorderColor: 'rgb(255, 255, 0)'
                         },
                         {
                             label: 'Maximal range (%)',
                             data: [
-                                {% for region in data.regions %}{{ (region.normal_range_max / (region.normal_range_max - region.normal_range_min) * 100)|round(2) }},
+                                {% for region in data.regions %}{{ (region.normal_range_max / region.normal_range_max * 100)|round(2) }},
                                 {% endfor %}
                             ],
                             fill: true,
@@ -184,6 +191,20 @@
                             pointBorderColor: '#fff',
                             pointHoverBackgroundColor: '#fff',
                             pointHoverBorderColor: 'rgb(0, 128, 0)'
+                        },
+                        {
+                            label: 'Alert range (%)',
+                            data: [
+                                {% for region in data.regions %}{{ (20)|round(2) }},
+                                {% endfor %}
+                            ],
+                            fill: true,
+                            backgroundColor: 'rgba(255, 0, 0, 0.2)', // Red color for values less than 10% of max
+                            borderColor: 'rgb(255, 0, 0)',
+                            pointBackgroundColor: 'rgb(255, 0, 0)',
+                            pointBorderColor: '#fff',
+                            pointHoverBackgroundColor: '#fff',
+                            pointHoverBorderColor: 'rgb(255, 0, 0)'
                         }
                     ]
                 };
