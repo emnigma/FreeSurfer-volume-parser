@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,6 +12,7 @@
             padding: 20px;
             background-color: #f4f4f4;
         }
+
         .report-container {
             max-width: 800px;
             margin: 0 auto;
@@ -19,22 +21,27 @@
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
+
         .report-header {
             text-align: center;
             margin-bottom: 30px;
         }
+
         .report-header h1 {
             color: #333;
             font-size: 2em;
             margin-bottom: 10px;
         }
+
         .report-header p {
             color: #666;
             font-size: 0.9em;
         }
+
         .report-section {
             margin-bottom: 30px;
         }
+
         .report-section h2 {
             color: #333;
             font-size: 1.5em;
@@ -42,39 +49,47 @@
             padding-bottom: 10px;
             margin-bottom: 20px;
         }
+
         .report-section p {
             color: #666;
             line-height: 1.6;
         }
+
         .report-section ul {
             list-style-type: disc;
             margin-left: 20px;
         }
+
         .report-footer {
             text-align: right;
             font-size: 0.8em;
             color: #666;
         }
+
         .report-footer p {
             margin: 0;
         }
+
         .report-table {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 30px;
         }
+
         .report-table th,
         .report-table td {
             border: 1px solid #ddd;
             padding: 10px;
             text-align: left;
         }
+
         .report-table th {
             background-color: #f2f2f2;
             font-weight: bold;
         }
     </style>
 </head>
+
 <body>
     <div class="report-container">
         <div class="report-header">
@@ -102,7 +117,8 @@
                     <tr>
                         <th>Region</th>
                         <th>Volume (mm³)</th>
-                        <th>Normal Range (mm³)</th>
+                        <th>Normal Range Min (mm³)</th>
+                        <th>Normal Range Max (mm³)</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -110,15 +126,96 @@
                     <tr>
                         <td>{{ region.name }}</td>
                         <td>{{ region.volume }}</td>
-                        <td>{{ region.normal_range }}</td>
+                        <td>{{ region.normal_range_min }}</td>
+                        <td>{{ region.normal_range_max }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
         </div>
         <div style="width: 400px; height: 400px;"><canvas id="radar"></canvas></div>
-        <script type="text/javascript" src="chartjs-plugin-datasource.js"></script>
-        <script type="module" src="radar.js"></script>
+        <script type="module">
+            import Chart from 'chart.js/auto'
+            (async function () {
+                const data = {
+                    labels: [
+                        {% for region in data.regions %}"{{ region.name }}",
+                        {% endfor %}
+                    ],
+                    datasets: [
+                        {
+                            label: 'Volume signature (norm %)',
+                            data: [
+                                {% for region in data.regions %}{{ region.volume }},
+                                {% endfor %}
+                            ],
+                            fill: true,
+                            backgroundColor: 'rgba(0, 0, 255, 0.2)',
+                            borderColor: 'rgb(0, 0, 255)',
+                            pointBackgroundColor: 'rgb(0, 0, 255)',
+                            pointBorderColor: '#fff',
+                            pointHoverBackgroundColor: '#fff',
+                            pointHoverBorderColor: 'rgb(0, 0, 255)'
+                        },
+                        {
+                            label: 'Minimal range (norm %)',
+                            data: [
+                                {% for region in data.regions %}{{ region.normal_range_min }},
+                                {% endfor %}
+                            ],
+                            fill: true,
+                            backgroundColor: 'rgba(255, 0, 0, 0.2)',
+                            borderColor: 'rgb(255, 0, 0)',
+                            pointBackgroundColor: 'rgb(255, 0, 0)',
+                            pointBorderColor: '#fff',
+                            pointHoverBackgroundColor: '#fff',
+                            pointHoverBorderColor: 'rgb(255, 0, 0)'
+                        },
+                        {
+                            label: 'Maximal range (norm %)',
+                            data: [
+                                {% for region in data.regions %}{{ region.normal_range_max }},
+                                {% endfor %}
+                            ],
+                            fill: true,
+                            backgroundColor: 'rgba(0, 128, 0, 0.2)',
+                            borderColor: 'rgb(0, 128, 0)',
+                            pointBackgroundColor: 'rgb(0, 128, 0)',
+                            pointBorderColor: '#fff',
+                            pointHoverBackgroundColor: '#fff',
+                            pointHoverBorderColor: 'rgb(0, 128, 0)'
+                        }
+                    ]
+                };
+
+                new Chart(
+                    document.getElementById('radar'),
+                    {
+                        type: 'radar',
+                        data: data,
+                        options: {
+                            elements: {
+                                line: {
+                                    borderWidth: 3
+                                }
+                            },
+                            scales: {
+                                r: {
+                                    angleLines: {
+                                        display: false
+                                    },
+                                    suggestedMin: 40,
+                                    suggestedMax: 100
+                                }
+                            },
+                            chartArea: { backgroundColor: 'red' },
+                        }
+                    }
+                );
+            })();
+
+        </script>
+        </script>
         <div class="report-section">
             <h2>Findings</h2>
             <p>The MRI scans reveal the following:</p>
@@ -130,7 +227,8 @@
         </div>
         <div class="report-section">
             <h2>Conclusion</h2>
-            <p>Based on the current imaging and analysis, the patient's brain appears to be within normal parameters. No immediate medical intervention is recommended.</p>
+            <p>Based on the current imaging and analysis, the patient's brain appears to be within normal parameters. No
+                immediate medical intervention is recommended.</p>
         </div>
         <div class="report-footer">
             <p>Prepared by: {{ data.prepared_by }}</p>
@@ -138,4 +236,5 @@
         </div>
     </div>
 </body>
+
 </html>

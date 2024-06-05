@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,6 +12,7 @@
             padding: 20px;
             background-color: #f4f4f4;
         }
+
         .report-container {
             max-width: 800px;
             margin: 0 auto;
@@ -19,22 +21,27 @@
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
+
         .report-header {
             text-align: center;
             margin-bottom: 30px;
         }
+
         .report-header h1 {
             color: #333;
             font-size: 2em;
             margin-bottom: 10px;
         }
+
         .report-header p {
             color: #666;
             font-size: 0.9em;
         }
+
         .report-section {
             margin-bottom: 30px;
         }
+
         .report-section h2 {
             color: #333;
             font-size: 1.5em;
@@ -42,39 +49,47 @@
             padding-bottom: 10px;
             margin-bottom: 20px;
         }
+
         .report-section p {
             color: #666;
             line-height: 1.6;
         }
+
         .report-section ul {
             list-style-type: disc;
             margin-left: 20px;
         }
+
         .report-footer {
             text-align: right;
             font-size: 0.8em;
             color: #666;
         }
+
         .report-footer p {
             margin: 0;
         }
+
         .report-table {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 30px;
         }
+
         .report-table th,
         .report-table td {
             border: 1px solid #ddd;
             padding: 10px;
             text-align: left;
         }
+
         .report-table th {
             background-color: #f2f2f2;
             font-weight: bold;
         }
     </style>
 </head>
+
 <body>
     <div class="report-container">
         <div class="report-header">
@@ -102,7 +117,8 @@
                     <tr>
                         <th>Region</th>
                         <th>Volume (mm³)</th>
-                        <th>Normal Range (mm³)</th>
+                        <th>Normal Range Min (mm³)</th>
+                        <th>Normal Range Max (mm³)</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -110,50 +126,162 @@
                     <tr>
                         <td>Frontal Lobe</td>
                         <td>50014</td>
-                        <td>211,000 - 263,000</td>
+                        <td>211000</td>
+                        <td>263000</td>
                     </tr>
                     
                     <tr>
                         <td>Parietal Lobe</td>
                         <td>32475</td>
-                        <td>138,000 - 173,000</td>
+                        <td>138000</td>
+                        <td>173000</td>
                     </tr>
                     
                     <tr>
                         <td>Temporal Lobe</td>
                         <td>36701</td>
-                        <td>128,000 - 163,000</td>
+                        <td>128000</td>
+                        <td>163000</td>
                     </tr>
                     
                     <tr>
                         <td>Occipital Lobe</td>
                         <td>18985</td>
-                        <td>59,000 - 85,000</td>
+                        <td>59000</td>
+                        <td>85000</td>
                     </tr>
                     
                     <tr>
                         <td>Hippocampi (Combined)</td>
-                        <td>NA</td>
-                        <td>15,400 - 21,600</td>
+                        <td>13450</td>
+                        <td>15400</td>
+                        <td>21600</td>
                     </tr>
                     
                     <tr>
                         <td>Cerebellum (Left)</td>
-                        <td>13256.9 (White Matter), 54126.7 (Cortex)</td>
-                        <td>80,000 - 120,000</td>
+                        <td>67383.6</td>
+                        <td>80000</td>
+                        <td>120000</td>
                     </tr>
                     
                     <tr>
                         <td>Cerebellum (Right)</td>
-                        <td>20514.6 (White Matter), 51024.1 (Cortex)</td>
-                        <td>80,000 - 120,000</td>
+                        <td>71538.7</td>
+                        <td>80000</td>
+                        <td>120000</td>
                     </tr>
                     
                 </tbody>
             </table>
         </div>
         <div style="width: 400px; height: 400px;"><canvas id="radar"></canvas></div>
-        <script type="module" src="radar.js"></script>
+        <script type="module">
+            import Chart from 'chart.js/auto'
+            (async function () {
+                const data = {
+                    labels: [
+                        "Frontal Lobe",
+                        "Parietal Lobe",
+                        "Temporal Lobe",
+                        "Occipital Lobe",
+                        "Hippocampi (Combined)",
+                        "Cerebellum (Left)",
+                        "Cerebellum (Right)",
+                        
+                    ],
+                    datasets: [
+                        {
+                            label: 'Volume signature (norm %)',
+                            data: [
+                                50014,
+                                32475,
+                                36701,
+                                18985,
+                                13450,
+                                67383.6,
+                                71538.7,
+                                
+                            ],
+                            fill: true,
+                            backgroundColor: 'rgba(0, 0, 255, 0.2)',
+                            borderColor: 'rgb(0, 0, 255)',
+                            pointBackgroundColor: 'rgb(0, 0, 255)',
+                            pointBorderColor: '#fff',
+                            pointHoverBackgroundColor: '#fff',
+                            pointHoverBorderColor: 'rgb(0, 0, 255)'
+                        },
+                        {
+                            label: 'Minimal range (norm %)',
+                            data: [
+                                211000,
+                                138000,
+                                128000,
+                                59000,
+                                15400,
+                                80000,
+                                80000,
+                                
+                            ],
+                            fill: true,
+                            backgroundColor: 'rgba(255, 0, 0, 0.2)',
+                            borderColor: 'rgb(255, 0, 0)',
+                            pointBackgroundColor: 'rgb(255, 0, 0)',
+                            pointBorderColor: '#fff',
+                            pointHoverBackgroundColor: '#fff',
+                            pointHoverBorderColor: 'rgb(255, 0, 0)'
+                        },
+                        {
+                            label: 'Maximal range (norm %)',
+                            data: [
+                                263000,
+                                173000,
+                                163000,
+                                85000,
+                                21600,
+                                120000,
+                                120000,
+                                
+                            ],
+                            fill: true,
+                            backgroundColor: 'rgba(0, 128, 0, 0.2)',
+                            borderColor: 'rgb(0, 128, 0)',
+                            pointBackgroundColor: 'rgb(0, 128, 0)',
+                            pointBorderColor: '#fff',
+                            pointHoverBackgroundColor: '#fff',
+                            pointHoverBorderColor: 'rgb(0, 128, 0)'
+                        }
+                    ]
+                };
+
+                new Chart(
+                    document.getElementById('radar'),
+                    {
+                        type: 'radar',
+                        data: data,
+                        options: {
+                            elements: {
+                                line: {
+                                    borderWidth: 3
+                                }
+                            },
+                            scales: {
+                                r: {
+                                    angleLines: {
+                                        display: false
+                                    },
+                                    suggestedMin: 40,
+                                    suggestedMax: 100
+                                }
+                            },
+                            chartArea: { backgroundColor: 'red' },
+                        }
+                    }
+                );
+            })();
+
+        </script>
+        </script>
         <div class="report-section">
             <h2>Findings</h2>
             <p>The MRI scans reveal the following:</p>
@@ -165,7 +293,8 @@
         </div>
         <div class="report-section">
             <h2>Conclusion</h2>
-            <p>Based on the current imaging and analysis, the patient's brain appears to be within normal parameters. No immediate medical intervention is recommended.</p>
+            <p>Based on the current imaging and analysis, the patient's brain appears to be within normal parameters. No
+                immediate medical intervention is recommended.</p>
         </div>
         <div class="report-footer">
             <p>Prepared by: Dr. Jane Smith</p>
@@ -173,4 +302,5 @@
         </div>
     </div>
 </body>
+
 </html>
