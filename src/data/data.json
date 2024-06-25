@@ -14,46 +14,34 @@
     },
     "regions": [
         {
-            "name": "Frontal Lobe",
-            "volume": 50014,
-            "normal_range_min": 211000,
-            "normal_range_max": 263000
+            "name": "Hippocampi (Combined)",
+            "volume": 8.4,
+            "normal_range_min": 7.79,
+            "normal_range_max": 8.47
         },
         {
-            "name": "Parietal Lobe",
-            "volume": 32475,
-            "normal_range_min": 138000,
-            "normal_range_max": 173000
+            "name": "Frontal Lobe",
+            "volume": 186,
+            "normal_range_min": 190.65,
+            "normal_range_max": 208.31
         },
         {
             "name": "Temporal Lobe",
-            "volume": 36701,
-            "normal_range_min": 128000,
-            "normal_range_max": 163000
+            "volume": 145,
+            "normal_range_min": 111.51,
+            "normal_range_max": 121.44
+        },
+        {
+            "name": "Parietal Lobe",
+            "volume": 142,
+            "normal_range_min": 123.21,
+            "normal_range_max": 135.22
         },
         {
             "name": "Occipital Lobe",
-            "volume": 18985,
-            "normal_range_min": 59000,
-            "normal_range_max": 85000
-        },
-        {
-            "name": "Hippocampi (Combined)",
-            "volume": 13450,
-            "normal_range_min": 15400,
-            "normal_range_max": 21600
-        },
-        {
-            "name": "Cerebellum (Left)",
-            "volume": 67383.6,
-            "normal_range_min": 80000,
-            "normal_range_max": 120000
-        },
-        {
-            "name": "Cerebellum (Right)",
-            "volume": 71538.7,
-            "normal_range_min": 80000,
-            "normal_range_max": 120000
+            "volume": 69,
+            "normal_range_min": 72.73,
+            "normal_range_max": 79.09
         }
     ],
     "prepared_by": "Dr. Jane Smith"
