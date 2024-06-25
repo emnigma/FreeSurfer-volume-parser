@@ -12,7 +12,7 @@ def calculate_volumes(aseg_file, aparc_lh_file, aparc_rh_file):
     # Calculate Hippocampi volume
     left_hippocampus = aseg_df["Left-Hippocampus"].values[0]
     right_hippocampus = aseg_df["Right-Hippocampus"].values[0]
-    hippocampi_volume = left_hippocampus + right_hippocampus
+    hippocampi_volume = (left_hippocampus + right_hippocampus) / 1000
 
     # Define regions for each lobe
     frontal_regions = [
@@ -59,10 +59,10 @@ def calculate_volumes(aseg_file, aparc_lh_file, aparc_rh_file):
         rh_volumes = rh_df[[f"rh_{region}" for region in regions]].sum(axis=1).values[0]
         return lh_volumes + rh_volumes
 
-    frontal_volume = sum_regions(aparc_lh_df, aparc_rh_df, frontal_regions)
-    temporal_volume = sum_regions(aparc_lh_df, aparc_rh_df, temporal_regions)
-    occipital_volume = sum_regions(aparc_lh_df, aparc_rh_df, occipital_regions)
-    parietal_volume = sum_regions(aparc_lh_df, aparc_rh_df, parietal_regions)
+    frontal_volume = sum_regions(aparc_lh_df, aparc_rh_df, frontal_regions) / 1000
+    temporal_volume = sum_regions(aparc_lh_df, aparc_rh_df, temporal_regions) / 1000
+    occipital_volume = sum_regions(aparc_lh_df, aparc_rh_df, occipital_regions) / 1000
+    parietal_volume = sum_regions(aparc_lh_df, aparc_rh_df, parietal_regions) / 1000
 
     # Create the output dictionary
     volumes = [
