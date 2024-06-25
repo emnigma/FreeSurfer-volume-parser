@@ -25,14 +25,14 @@ jobs:
 
     - name: Run calculate_volumes.py
       run: >
-        python calculate_volumes.py
+        python ${{ github.workspace }}/.github/workflows/calculate_volumes.py
         --aseg ${{ github.workspace }}/.github/workflows/examples/aseg_volume.csv
         --aparc_lh ${{ github.workspace }}/.github/workflows/aparc_lh_volume.csv
         --aparc_rh ${{ github.workspace }}/.github/workflows/examples/aparc_rh_volume.csv > volumes.json
 
     - name: Convert JSON to Markdown
       run: |
-        python json_to_md.py --json volumes.json --md volumes.md
+        python ${{ github.workspace }}/.github/workflows/json_to_md.py --json volumes.json --md volumes.md
 
     - name: Display CI Summary
       run: |
