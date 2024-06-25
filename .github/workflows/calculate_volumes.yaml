@@ -1,9 +1,9 @@
 name: Calculate Volumes
 
 on:
-  push:
+  pull_request:
     branches:
-      - 'emnigma*'
+      - master
 
 jobs:
   calculate_volumes:
