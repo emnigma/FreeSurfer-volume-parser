@@ -12,7 +12,7 @@ def calculate_volumes(aseg_file, aparc_lh_file, aparc_rh_file):
     # Calculate Hippocampi volume
     left_hippocampus = aseg_df["Left-Hippocampus"].values[0]
     right_hippocampus = aseg_df["Right-Hippocampus"].values[0]
-    hippocampi_volume = left_hippocampus + right_hippocampus
+    hippocampi_volume = (left_hippocampus + right_hippocampus) / 1000
 
     # Define regions for each lobe
     frontal_regions = [
