@@ -23,9 +23,9 @@ jobs:
         python -m pip install --upgrade pip
         pip install pandas
 
-    - name: Run calculate_volumes.py
+    - name: Run parse_volumes.py
       run: >
-        python ${{ github.workspace }}/.github/workflows/calculate_volumes.py
+        python parse_volumes.py
         --aseg ${{ github.workspace }}/.github/workflows/examples/aseg_volume.csv
         --aparc_lh ${{ github.workspace }}/.github/workflows/aparc_lh_volume.csv
         --aparc_rh ${{ github.workspace }}/.github/workflows/examples/aparc_rh_volume.csv > volumes.json
