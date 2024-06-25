@@ -59,10 +59,10 @@ def calculate_volumes(aseg_file, aparc_lh_file, aparc_rh_file):
         rh_volumes = rh_df[[f"rh_{region}" for region in regions]].sum(axis=1).values[0]
         return lh_volumes + rh_volumes
 
-    frontal_volume = sum_regions(aparc_lh_df, aparc_rh_df, frontal_regions) / 100
-    temporal_volume = sum_regions(aparc_lh_df, aparc_rh_df, temporal_regions) / 100
-    occipital_volume = sum_regions(aparc_lh_df, aparc_rh_df, occipital_regions) / 100
-    parietal_volume = sum_regions(aparc_lh_df, aparc_rh_df, parietal_regions) / 100
+    frontal_volume = sum_regions(aparc_lh_df, aparc_rh_df, frontal_regions) / 1000
+    temporal_volume = sum_regions(aparc_lh_df, aparc_rh_df, temporal_regions) / 1000
+    occipital_volume = sum_regions(aparc_lh_df, aparc_rh_df, occipital_regions) / 1000
+    parietal_volume = sum_regions(aparc_lh_df, aparc_rh_df, parietal_regions) / 1000
 
     # Create the output dictionary
     volumes = [
