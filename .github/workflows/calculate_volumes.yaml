@@ -27,7 +27,7 @@ jobs:
       run: >
         python parse_volumes.py
         --aseg ${{ github.workspace }}/.github/workflows/examples/aseg_volume.csv
-        --aparc_lh ${{ github.workspace }}/.github/workflows/aparc_lh_volume.csv
+        --aparc_lh ${{ github.workspace }}/.github/workflows/examples/aparc_lh_volume.csv
         --aparc_rh ${{ github.workspace }}/.github/workflows/examples/aparc_rh_volume.csv > volumes.json
 
     - name: Convert JSON to Markdown
