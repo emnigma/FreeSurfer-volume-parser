@@ -1,4 +1,4 @@
-name: Calculate Volumes
+name: Pipeline
 
 on:
   pull_request:
@@ -6,7 +6,7 @@ on:
       - master
 
 jobs:
-  calculate_volumes:
+  pipeline:
     runs-on: ubuntu-latest
 
     steps:
@@ -23,7 +23,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install pandas
 
-    - name: Run calculate_volumes.py
+    - name: Run calculate_volumes
       run: >
         python3 pipeline.py calculate_volumes \
         --aseg ${{ github.workspace }}/.github/workflows/examples/aseg_volume.csv \
@@ -31,7 +31,7 @@ jobs:
         --aparc_rh ${{ github.workspace }}/.github/workflows/examples/aparc_rh_volume.csv \
         --output-json data.json
     
-    - name: Run calculate_volumes.py
+    - name: Run generate_html
       run: >
         python3 pipeline.py generate_html \
         --data-file data.json \
@@ -53,7 +53,6 @@ jobs:
       with:
         name: report
         path: report.pdf
-
 
     - name: Convert JSON to Markdown
       run: |
