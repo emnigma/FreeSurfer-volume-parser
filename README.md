@@ -33,38 +33,38 @@ To accurately calculate the volumes of the Frontal, Temporal, Occipital, and Par
 ### Volumes Calculation
 
 1. **Frontal Cortex Volumes:**
-   - lh_caudalmiddlefrontal_volume
-   - lh_lateralorbitofrontal_volume
-   - lh_medialorbitofrontal_volume
-   - lh_parsopercularis_volume
-   - lh_parsorbitalis_volume
-   - lh_parstriangularis_volume
-   - lh_precentral_volume
-   - lh_rostralmiddlefrontal_volume
-   - lh_superiorfrontal_volume
-   - lh_frontalpole_volume
+   - caudalmiddlefrontal_volume
+   - lateralorbitofrontal_volume
+   - medialorbitofrontal_volume
+   - parsopercularis_volume
+   - parsorbitalis_volume
+   - parstriangularis_volume
+   - precentral_volume
+   - rostralmiddlefrontal_volume
+   - superiorfrontal_volume
+   - frontalpole_volume
 
 2. **Temporal Cortex Volumes:**
-   - lh_entorhinal_volume
-   - lh_fusiform_volume
-   - lh_inferiortemporal_volume
-   - lh_middletemporal_volume
-   - lh_parahippocampal_volume
-   - lh_superiortemporal_volume
-   - lh_temporalpole_volume
-   - lh_transversetemporal_volume
+   - entorhinal_volume
+   - fusiform_volume
+   - inferiortemporal_volume
+   - middletemporal_volume
+   - parahippocampal_volume
+   - superiortemporal_volume
+   - temporalpole_volume
+   - transversetemporal_volume
 
 3. **Occipital Cortex Volumes:**
-   - lh_cuneus_volume
-   - lh_lateraloccipital_volume
-   - lh_lingual_volume
-   - lh_pericalcarine_volume
+   - cuneus_volume
+   - lateraloccipital_volume
+   - lingual_volume
+   - pericalcarine_volume
 
 4. **Parietal Cortex Volumes:**
-   - lh_inferiorparietal_volume
-   - lh_isthmuscingulate_volume
-   - lh_postcentral_volume
-   - lh_precuneus_volume
-   - lh_superiorparietal_volume
-   - lh_supramarginal_volume
-   - lh_paracentral_volume
+   - inferiorparietal_volume
+   - isthmuscingulate_volume
+   - postcentral_volume
+   - precuneus_volume
+   - superiorparietal_volume
+   - supramarginal_volume
+   - paracentral_volume
