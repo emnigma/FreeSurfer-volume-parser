@@ -25,18 +25,18 @@ jobs:
 
     - name: Run calculate_volumes
       run: >
-        python3 pipeline.py calculate_volumes \
-        --aseg ${{ github.workspace }}/.github/workflows/examples/aseg_volume.csv \
-        --aparc_lh ${{ github.workspace }}/.github/workflows/examples/aparc_lh_volume.csv \
-        --aparc_rh ${{ github.workspace }}/.github/workflows/examples/aparc_rh_volume.csv \
+        python3 pipeline.py calculate_volumes 
+        --aseg ${{ github.workspace }}/.github/workflows/examples/aseg_volume.csv
+        --aparc_lh ${{ github.workspace }}/.github/workflows/examples/aparc_lh_volume.csv
+        --aparc_rh ${{ github.workspace }}/.github/workflows/examples/aparc_rh_volume.csv
         --output_json data.json
     
     - name: Run generate_html
       run: >
-        python3 pipeline.py generate_html \
-        --data_file data.json \
-        --reference_data_file resources/reference_data.json \
-        --template_dir resources/templates \
+        python3 pipeline.py generate_html 
+        --data_file data.json
+        --reference_data_file resources/reference_data.json
+        --template_dir resources/templates
         --output_file index.html
 
     - name: Run server
