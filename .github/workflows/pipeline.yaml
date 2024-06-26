@@ -44,6 +44,7 @@ jobs:
       run: |
         mkdir src
         cp index.html src/index.html
+        yarn install
         yarn dev index.html &
 
     - name: PDFy report
