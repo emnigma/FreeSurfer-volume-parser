@@ -17,6 +17,7 @@ jobs:
       uses: actions/setup-python@v5
       with:
         python-version: '3.12'
+        cache: pip
 
     - name: Install dependencies
       run: |
@@ -29,15 +30,15 @@ jobs:
         --aseg ${{ github.workspace }}/.github/workflows/examples/aseg_volume.csv
         --aparc_lh ${{ github.workspace }}/.github/workflows/examples/aparc_lh_volume.csv
         --aparc_rh ${{ github.workspace }}/.github/workflows/examples/aparc_rh_volume.csv
-        --output_json data.json
+        --output-json data.json
     
     - name: Run generate_html
       run: >
         python3 pipeline.py generate_html 
-        --data_file data.json
-        --reference_data_file resources/reference_data.json
-        --template_dir resources/templates
-        --output_file index.html
+        --data-file data.json
+        --reference-data-file resources/reference_data.json
+        --template-dir resources/templates
+        --output-file index.html
 
     - name: Run server
       run: |
