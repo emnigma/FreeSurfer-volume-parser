@@ -1,29 +1,35 @@
 import argparse
 import json
 
+import pandas as pd
+
+
 def json_to_markdown(json_file, md_file):
-    with open(json_file, 'r') as f:
+    with open(json_file, "r") as f:
         data = json.load(f)
 
-    md_table = "| Name | Volume (mm^3) |\n"
-    md_table += "|------|--------------|\n"
+    # Extract regions data
+    regions_data = data["regions"]
 
-    for entry in data:
-        name = entry['name']
-        volume = entry['volume']
-        md_table += f"| {name} | {volume:.1f} |\n"
+    # Convert regions data to DataFrame
+    df = pd.DataFrame(regions_data)
 
-    with open(md_file, 'w') as f:
+    # Convert DataFrame to MD table
+    md_table = df.to_markdown(index=False)
+
+    with open(md_file, "w") as f:
         f.write(md_table)
 
+
 def main():
-    parser = argparse.ArgumentParser(description='Convert JSON to Markdown table.')
-    parser.add_argument('--json', required=True, help='Path to the JSON file')
-    parser.add_argument('--md', required=True, help='Path to the output Markdown file')
+    parser = argparse.ArgumentParser(description="Convert JSON to Markdown table.")
+    parser.add_argument("--json", required=True, help="Path to the JSON file")
+    parser.add_argument("--md", required=True, help="Path to the output Markdown file")
 
     args = parser.parse_args()
-    
+
     json_to_markdown(args.json, args.md)
+
 
 if __name__ == "__main__":
     main()
