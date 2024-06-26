@@ -48,17 +48,18 @@ jobs:
         yarn dev index.html &
 
     - name: PDFy report
-      run: python3 pdfy.py
+      run: python3 -c 'from pyhtml2pdf import converter;converter.convert("http://localhost:1234/", "report.pdf")'
     
     - name: Upload report.pdf artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
-        name: report
+        name: PatientPDF
         path: report.pdf
+        retention-days: 1
 
     - name: Convert JSON to Markdown
       run: |
-        python ${{ github.workspace }}/.github/workflows/json_to_md.py --json volumes.json --md volumes.md
+        python ${{ github.workspace }}/.github/workflows/json_to_md.py --json data.json --md volumes.md
 
     - name: Display CI Summary
       run: |
