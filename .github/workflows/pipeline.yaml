@@ -1,4 +1,4 @@
-name: Pipeline
+name: Generate report from FreeSurfer output pipeline
 
 on:
   pull_request:
@@ -26,7 +26,7 @@ jobs:
 
     - name: Run calculate_volumes
       run: >
-        python3 pipeline.py calculate_volumes 
+        python3 pipeline.py calculate_volumes
         --aseg ${{ github.workspace }}/.github/workflows/examples/aseg_volume.csv
         --aparc_lh ${{ github.workspace }}/.github/workflows/examples/aparc_lh_volume.csv
         --aparc_rh ${{ github.workspace }}/.github/workflows/examples/aparc_rh_volume.csv
@@ -34,7 +34,7 @@ jobs:
     
     - name: Run generate_html
       run: >
-        python3 pipeline.py generate_html 
+        python3 pipeline.py generate_html
         --data-file data.json
         --reference-data-file resources/reference_data.json
         --template-dir resources/templates
@@ -42,10 +42,8 @@ jobs:
 
     - name: Run server
       run: |
-        mkdir src
-        cp index.html src/index.html
         yarn install
-        yarn dev index.html &
+        yarn run dev &
 
     - name: PDFy report
       run: python3 -c 'from pyhtml2pdf import converter;converter.convert("http://localhost:1234/", "report.pdf")'
@@ -53,7 +51,7 @@ jobs:
     - name: Upload report.pdf artifact
       uses: actions/upload-artifact@v4
       with:
-        name: PatientPDF
+        name: patient_pdf
         path: report.pdf
         retention-days: 1
 
