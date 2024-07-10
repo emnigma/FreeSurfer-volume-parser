@@ -20,41 +20,41 @@ def calculate_volumes(aseg_file, aparc_lh_file, aparc_rh_file):
 
     # Define regions for each lobe
     frontal_regions = [
+        "superiorfrontal_volume",
+        "rostralmiddlefrontal_volume",
         "caudalmiddlefrontal_volume",
+        "parsopercularis_volume",
+        "parstriangularis_volume",
+        "parsorbitalis_volume",
         "lateralorbitofrontal_volume",
         "medialorbitofrontal_volume",
-        "parsopercularis_volume",
-        "parsorbitalis_volume",
-        "parstriangularis_volume",
-        "precentral_volume",
-        "rostralmiddlefrontal_volume",
-        "superiorfrontal_volume",
         "frontalpole_volume",
+        "precentral_volume",
+        "paracentral_volume",
     ]
     temporal_regions = [
         "entorhinal_volume",
-        "fusiform_volume",
-        "inferiortemporal_volume",
-        "middletemporal_volume",
         "parahippocampal_volume",
-        "superiortemporal_volume",
         "temporalpole_volume",
+        "fusiform_volume",
+        "superiortemporal_volume",
+        "middletemporal_volume",
+        "inferiortemporal_volume",
         "transversetemporal_volume",
+        "bankssts_volume",
     ]
     occipital_regions = [
-        "cuneus_volume",
-        "lateraloccipital_volume",
         "lingual_volume",
         "pericalcarine_volume",
+        "cuneus_volume",
+        "lateraloccipital_volume",
     ]
     parietal_regions = [
-        "inferiorparietal_volume",
-        "isthmuscingulate_volume",
         "postcentral_volume",
-        "precuneus_volume",
-        "superiorparietal_volume",
         "supramarginal_volume",
-        "paracentral_volume",
+        "superiorparietal_volume",
+        "inferiorparietal_volume",
+        "precuneus_volume",
     ]
 
     # Calculate the volumes for each lobe
@@ -70,7 +70,7 @@ def calculate_volumes(aseg_file, aparc_lh_file, aparc_rh_file):
 
     # Create the output dictionary
     volumes = [
-        {"name": "Hippocampi (Combined)", "volume": hippocampi_volume},
+        {"name": "Hippocampi", "volume": hippocampi_volume},
         {"name": "Frontal Lobe", "volume": frontal_volume},
         {"name": "Temporal Lobe", "volume": temporal_volume},
         {"name": "Parietal Lobe", "volume": parietal_volume},
