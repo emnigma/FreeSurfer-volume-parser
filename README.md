@@ -8,43 +8,48 @@
 
 # Parser theory
 
-To accurately calculate the volumes of the Frontal, Temporal, Occipital, and Parietal cortexes from the FreeSurfer output, we need to sum the relevant regions associated with each cortex:
+To accurately calculate the volumes of the Frontal, Temporal, Occipital, and Parietal cortexes from the FreeSurfer output, we need to sum the relevant regions associated with each cortex. Data for this separation is sourced from [Desikan-Killiany atlas](https://surfer.nmr.mgh.harvard.edu/ftp/articles/desikan06-parcellation.pdf):
 
 ### Volumes Calculation
 
 1. **Frontal Cortex Volumes:**
-   - caudalmiddlefrontal_volume
-   - lateralorbitofrontal_volume
-   - medialorbitofrontal_volume
-   - parsopercularis_volume
-   - parsorbitalis_volume
-   - parstriangularis_volume
-   - precentral_volume
-   - rostralmiddlefrontal_volume
-   - superiorfrontal_volume
-   - frontalpole_volume
+   - Superior frontal gyrus: superiorfrontal_volume
+   - Middle frontal gyrus:
+     - Rostral division: rostralmiddlefrontal_volume
+     - Caudal division: caudalmiddlefrontal_volume
+   - Inferior frontal gyrus:
+     - Pars opercularis: parsopercularis_volume
+     - Pars triangularis: parstriangularis_volume
+     - Pars orbitalis: parsorbitalis_volume
+   - Orbitofrontal cortex:
+     - Lateral division: lateralorbitofrontal_volume
+     - Medial division: medialorbitofrontal_volume
+   - Frontal pole: frontalpole_volume
+   - Precentral gyrus: precentral_volume
+   - Paracentral lobule: paracentral_volume
 
 2. **Temporal Cortex Volumes:**
-   - entorhinal_volume
-   - fusiform_volume
-   - inferiortemporal_volume
-   - middletemporal_volume
-   - parahippocampal_volume
-   - superiortemporal_volume
-   - temporalpole_volume
-   - transversetemporal_volume
+   - Temporal lobe—medial aspect
+      - Entorhinal cortex: entorhinal_volume
+      - Parahippocampal gyrus: parahippocampal_volume
+      - Temporal pole: temporalpole_volume
+      - Fusiform gyrus: fusiform_volume
+   - Temporal lobe—lateral aspect
+      - Superior temporal gyrus: superiortemporal_volume
+      - Middle temporal gyrus: middletemporal_volume
+      - Inferior temporal gyrus: inferiortemporal_volume
+      - Transverse temporal cortex: transversetemporal_volume
+      - Banks of the superior temporal sulcus: bankssts_volume
 
 3. **Occipital Cortex Volumes:**
-   - cuneus_volume
-   - lateraloccipital_volume
-   - lingual_volume
-   - pericalcarine_volume
+   - Lingual gyrus: lingual_volume
+   - Pericalcarine cortex: pericalcarine_volume
+   - Cuneus cortex: cuneus_volume
+   - Lateral occipital cortex: lateraloccipital_volume
 
 4. **Parietal Cortex Volumes:**
-   - inferiorparietal_volume
-   - isthmuscingulate_volume
-   - postcentral_volume
-   - precuneus_volume
-   - superiorparietal_volume
-   - supramarginal_volume
-   - paracentral_volume
+   - Postcentral gyrus: postcentral_volume
+   - Supramarginal gyrus: supramarginal_volume
+   - Superior parietal cortex: superiorparietal_volume
+   - Inferior parietal cortex: inferiorparietal_volume
+   - Precuneus cortex: precuneus_volume
