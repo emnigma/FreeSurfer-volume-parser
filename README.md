@@ -13,15 +13,32 @@ To parse FreeSurfer subjects (`<subj>/stats` dir is sufficient) using `asegstats
 ```bash
 # supply your own `license.txt` to project root dir to build container
 docker build -t fscontainer .
-docker run -v <SUBJECTS_DIR>:/root/data -it --rm fscontainer /bin/bash
+docker run -v <SUBJECTS_DIR>:/root -it --rm fscontainer /bin/bash
 
-$> cd data
-$> asegstats2table --subjects $subject_id --meas volume --tablefile $subject_id/aseg_volume.csv
-$> ...
+$> asegstats2table ...
+$> aparcstats2table ...
 $> exit
 
 python3 analyze_dir.py <SUBJECTS_DIR> <anydest>
 ```
+
+<details>
+   <summary>Auto parse subject by id</summary>
+
+   ```bash
+   subject_id=$1
+
+   export SUBJECTS_DIR="./"
+
+   # Step 1: Extract Subcortical Volumes
+   asegstats2table --subjects $subject_id --meas volume --tablefile $subject_id/aseg_volume.csv
+
+   # Step 2: Extract Cortical Volumes
+   aparcstats2table --subjects $subject_id --hemi lh --meas volume --tablefile $subject_id/aparc_lh_volume.csv
+   aparcstats2table --subjects $subject_id --hemi rh --meas volume --tablefile $subject_id/aparc_rh_volume.csv
+   ```
+
+</details>
 
 # Parser theory
 
