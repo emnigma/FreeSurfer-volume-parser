@@ -29,6 +29,8 @@ python3 pipeline.py generate_html \
         --template-dir resources/templates \
         --output-file $REPORT_GEN_OUTPUT/index.html
 
+cp $REPORT_GEN_OUTPUT/index.html ./index.html
+
 yarn install
 yarn run dev &
 
