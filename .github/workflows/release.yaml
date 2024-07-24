@@ -1,0 +1,54 @@
+name: 'Release'
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions: write-all
+
+env:
+  DOCKER_IMAGE_NAME: ${{ vars.DOCKER_IMAGE_NAME }}
+
+jobs:
+  release:
+    name: 'Release'
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: 'Debug'
+        run: |
+          printenv
+
+      - name: 'Test environment'
+        run: |
+          [[ "${{ env.DOCKER_IMAGE_NAME }}" == "" ]] && { echo 'Variable DOCKER_IMAGE_NAME is not set, exit...' ; exit 1 ; } || exit 0
+
+      - name: 'Install and Configure applications'
+        run: |
+          apt-get update
+          apt-get install -yqq --no-install-recommends \
+            ca-certificates \
+            git-core
+
+      - name: 'Checkout repository'
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: 'Add git path to trusted'
+        run: |
+          git config --global --add safe.directory ${GITHUB_WORKSPACE}
+
+      - name: 'Release'
+        uses: cycjimmy/semantic-release-action@v4
+        with:
+          semantic_version: 18.0.0
+          extra_plugins: |
+            conventional-changelog-conventionalcommits@4.6.3
