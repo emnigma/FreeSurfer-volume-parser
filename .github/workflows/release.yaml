@@ -29,13 +29,6 @@ jobs:
         run: |
           [[ "${{ env.DOCKER_IMAGE_NAME }}" == "" ]] && { echo 'Variable DOCKER_IMAGE_NAME is not set, exit...' ; exit 1 ; } || exit 0
 
-      - name: 'Install and Configure applications'
-        run: |
-          apt-get update
-          apt-get install -yqq --no-install-recommends \
-            ca-certificates \
-            git-core
-
       - name: 'Checkout repository'
         uses: actions/checkout@v4
         with:
