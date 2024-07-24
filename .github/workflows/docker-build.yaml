@@ -37,7 +37,6 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: latest
   
   run-pipeline:
     name: 'Launch pipeline'
