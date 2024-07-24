@@ -1,19 +1,23 @@
-# MRI .pdf report creator
+# MRI .pdf and web-page report creator
 
-//TODO
+## Running pipeline
 
-# Creating source data
+1. Install `freesurfer/freesurfer:7.1.1` docker image
+2. Obtain FreeSurfer `license.txt`
+3. Run the following command:
+```bash
+bash pipeline.sh <ABS_SUBJECT_DIR> <SUBJECT_NAME> <ABS_PATH_TO_FILE_WITH_LICENSE> <OUTDIR>
+```
 
-//TODO
+# Details
 
-## Docker
+## Parsing and analysis with Docker
 
-To parse FreeSurfer subjects (`<subj>/stats` dir is sufficient) using `asegstats2table` and `aparcstats2table`, one can use FreeSurfer docker image to use these commands more easily. To access these commands, do:
+One way to parse FreeSurfer subjects (`<subj>/stats` dir is sufficient) using `asegstats2table` and `aparcstats2table`, one can use FreeSurfer docker image to use these commands more easily. To access these commands, do:
 
 ```bash
 # supply your own `license.txt` to project root dir to build container
-docker build -t fscontainer .
-docker run -v <SUBJECTS_DIR>:/root -it --rm fscontainer /bin/bash
+docker run -v <SUBJECTS_DIR>:/root -it --rm freesurfer/freesurfer:7.1.1 /bin/bash
 
 $> asegstats2table ...
 $> aparcstats2table ...
