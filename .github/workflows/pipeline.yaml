@@ -10,6 +10,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Setup environment variables
+      run: |
+        echo "WORKFLOWS_DIR=${{ github.workspace }}/.github/workflows/" >> $GITHUB_ENV
+        echo "OUTPUT_DIR=out" >> $GITHUB_ENV
+
     - name: Checkout repository
       uses: actions/checkout@v4
 
@@ -25,19 +30,21 @@ jobs:
         pip install -r requirements.txt
     
     - name: Run pipeline
-      run: >
-        bash pipeline.sh ${{ github.workspace }}/.github/workflows/example_subjects subj1 out
+      run:
+        bash pipeline.sh ${{ env.WORKFLOWS_DIR }}/example_subjects subj1 ${{ env.OUTPUT_DIR }}
     
     - name: Upload report.pdf artifact
       uses: actions/upload-artifact@v4
       with:
         name: patient_pdf
-        path: out/report_gen_output/report.pdf
+        path: ${{ env.OUTPUT_DIR }}/report_gen_output/report.pdf
         retention-days: 1
 
     - name: Convert JSON to Markdown
-      run: |
-        python ${{ github.workspace }}/.github/workflows/json_to_md.py --json out/volumes_json_output/data.json --md volumes.md
+      run: >
+        python ${{ env.WORKFLOWS_DIR }}/json_to_md.py
+        --json ${{ env.OUTPUT_DIR }}/volumes_json_output/data.json
+        --md volumes.md
 
     - name: Display CI Summary
       run: |
