@@ -14,6 +14,8 @@ jobs:
   release:
     name: 'Build image'
     runs-on: ubuntu-latest
+    outputs:
+      my_variable: ${{ steps.set_output.outputs.dockertag }}
     steps:
       - name: 'Debug'
         run: |
@@ -40,6 +42,10 @@ jobs:
           tags: |
             type=ref,event=branch
             type=semver,pattern={{raw}}
+      
+      - name: 'Set Docker tag output'
+        id: set_output
+        run: echo "dockertag=${{ steps.meta.outputs.tags }}" >> $GITHUB_ENV
 
       - name: 'Build and push Docker image'
         uses: docker/build-push-action@v5
@@ -53,7 +59,7 @@ jobs:
     name: 'Launch pipeline'
     runs-on: ubuntu-latest
     needs: release
-    container: emnigma/neurographx-mri-pages-vis:${{ needs.release.steps.meta.outputs.tags }}
+    container: emnigma/neurographx-mri-pages-vis:${{ needs.release.outputs.dockertag }}
     steps:
       - name: Setup environment variables
         run: |
