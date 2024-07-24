@@ -2,25 +2,25 @@
 
 ## Running pipeline
 
-1. Install `freesurfer/freesurfer:7.1.1` docker image
-2. Obtain FreeSurfer `license.txt`
-3. Run the following command:
+Run the following command:
 ```bash
-bash pipeline.sh <ABS_SUBJECT_DIR> <SUBJECT_NAME> <ABS_PATH_TO_FILE_WITH_LICENSE> <OUTDIR>
+python3 -m venv .env
+source .env/bin/activate
+pip install -r requirements
+bash pipeline.sh <ABS_SUBJECT_DIR> <SUBJECT_NAME> <OUTDIR>
 ```
 
+(!) `SUBJECTS_DIR` should be set to dir with fs-subjects
 # Details
 
 ## Parsing and analysis with Docker
 
-One way to parse FreeSurfer subjects (`<subj>/stats` dir is sufficient) using `asegstats2table` and `aparcstats2table`, one can use FreeSurfer docker image to use these commands more easily. To access these commands, do:
+To parse FreeSurfer subjects (`<subj>/stats` dir is sufficient) using `asegstats2table` and `aparcstats2table`, one can use provided FreeSurfer python scripts. To access these commands, do:
 
 ```bash
-# supply your own `license.txt` to project root dir to build container
-docker run -v <SUBJECTS_DIR>:/root -it --rm freesurfer/freesurfer:7.1.1 /bin/bash
 
-$> asegstats2table ...
-$> aparcstats2table ...
+$> pysurfer/asegstats2table.py ...
+$> pysurfer/aparcstats2table.py ...
 $> exit
 
 python3 analyze_dir.py <SUBJECTS_DIR> <anydest>
@@ -35,11 +35,11 @@ python3 analyze_dir.py <SUBJECTS_DIR> <anydest>
    export SUBJECTS_DIR="./"
 
    # Step 1: Extract Subcortical Volumes
-   asegstats2table --subjects $subject_id --meas volume --tablefile $subject_id/aseg_volume.csv
+   pysurfer/asegstats2table.py --subjects $subject_id --meas volume --tablefile $subject_id/aseg_volume.csv
 
    # Step 2: Extract Cortical Volumes
-   aparcstats2table --subjects $subject_id --hemi lh --meas volume --tablefile $subject_id/aparc_lh_volume.csv
-   aparcstats2table --subjects $subject_id --hemi rh --meas volume --tablefile $subject_id/aparc_rh_volume.csv
+   pysurfer/aparcstats2table.py --subjects $subject_id --hemi lh --meas volume --tablefile $subject_id/aparc_lh_volume.csv
+   pysurfer/aparcstats2table.py --subjects $subject_id --hemi rh --meas volume --tablefile $subject_id/aparc_rh_volume.csv
    ```
 
 </details>
