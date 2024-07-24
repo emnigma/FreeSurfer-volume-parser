@@ -10,6 +10,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Setup environment variables
+      run: |
+        echo "WORKFLOWS_DIR=${{ github.workspace }}/.github/workflows/" >> $GITHUB_ENV
+        echo "OUTPUT_DIR=out" >> $GITHUB_ENV
+
     - name: Checkout repository
       uses: actions/checkout@v4
 
@@ -23,41 +28,23 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-
-    - name: Run calculate_volumes
-      run: >
-        python3 pipeline.py calculate_volumes
-        --aseg ${{ github.workspace }}/.github/workflows/examples/aseg_volume.csv
-        --aparc_lh ${{ github.workspace }}/.github/workflows/examples/aparc_lh_volume.csv
-        --aparc_rh ${{ github.workspace }}/.github/workflows/examples/aparc_rh_volume.csv
-        --output-json data.json
     
-    - name: Run generate_html
-      run: >
-        python3 pipeline.py generate_html
-        --data-file data.json
-        --reference-data-file resources/reference_data.json
-        --template-dir resources/templates
-        --output-file index.html
-
-    - name: Run server
-      run: |
-        yarn install
-        yarn run dev &
-
-    - name: PDFy report
-      run: python3 -c 'from pyhtml2pdf import converter;converter.convert("http://localhost:1234/", "report.pdf")'
+    - name: Run pipeline
+      run:
+        bash pipeline.sh ${{ env.WORKFLOWS_DIR }}/example_subjects subj1 ${{ env.OUTPUT_DIR }}
     
     - name: Upload report.pdf artifact
       uses: actions/upload-artifact@v4
       with:
         name: patient_pdf
-        path: report.pdf
+        path: ${{ env.OUTPUT_DIR }}/report_gen_output/report.pdf
         retention-days: 1
 
     - name: Convert JSON to Markdown
-      run: |
-        python ${{ github.workspace }}/.github/workflows/json_to_md.py --json data.json --md volumes.md
+      run: >
+        python ${{ env.WORKFLOWS_DIR }}/json_to_md.py
+        --json ${{ env.OUTPUT_DIR }}/volumes_json_output/data.json
+        --md volumes.md
 
     - name: Display CI Summary
       run: |
