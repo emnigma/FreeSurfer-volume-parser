@@ -26,7 +26,6 @@ jobs:
       - name: 'Make output dir'
         run: |
           mkdir ${{ env.OUTPUT_DIR }}
-          chmod 777 ${{ env.OUTPUT_DIR }}
 
       - name: 'Debug'
         run: |
@@ -82,11 +81,15 @@ jobs:
             -v ${{ env.OUTPUT_DIR }}:/root/out \
             ${{ env.TEST_TAG }} /root/data subj1 /root/out
 
-      - name: 'Convert index.html to .pdf'
+      - name: 'Run node server'
         run: |
           cp ${{ env.OUTPUT_DIR }}/report_gen_output/index.html index.html
           yarn install
           yarn run dev &
+
+      - name: 'Convert index.html to .pdf'
+        run: |
+          pwd
           python3 convert.py ${{ env.OUTPUT_DIR }}/report_gen_output
 
       - name: 'Upload report.pdf artifact'
