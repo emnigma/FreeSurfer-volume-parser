@@ -15,7 +15,7 @@ jobs:
     name: 'Build image'
     runs-on: ubuntu-latest
     outputs:
-      my_variable: ${{ steps.set_output.outputs.dockertag }}
+      dockertag: ${{ steps.set_output.outputs.dockertag }}
     steps:
       - name: 'Debug'
         run: |
