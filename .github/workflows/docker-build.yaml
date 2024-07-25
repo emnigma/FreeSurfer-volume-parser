@@ -15,8 +15,6 @@ jobs:
   release:
     name: 'Full dev pipeline CI run'
     runs-on: ubuntu-latest
-    outputs:
-      dockertag: ${{ steps.set_output.outputs.dockertag }}
     steps:
       - name: 'Setup environment variables and make out dir'
         run: |
@@ -61,10 +59,6 @@ jobs:
           tags: |
             type=ref,event=branch
             type=semver,pattern={{raw}}
-
-      - name: 'Set Docker tag output'
-        id: set_output
-        run: echo "dockertag=${{ steps.meta.outputs.tags }}" >> $GITHUB_ENV
 
       - name: Build and export to Docker
         uses: docker/build-push-action@v6
