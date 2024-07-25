@@ -21,7 +21,7 @@ jobs:
       - name: 'Setup environment variables and make out dir'
         run: |
           echo "WORKFLOWS_DIR=${{ github.workspace }}/.github/workflows" >> $GITHUB_ENV
-          echo "OUTPUT_DIR=out" >> $GITHUB_ENV
+          echo "OUTPUT_DIR=${{ github.workspace }}/out" >> $GITHUB_ENV
           mkdir out
 
       - name: 'Debug'
