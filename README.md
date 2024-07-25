@@ -8,22 +8,52 @@ python3 -m venv .env
 source .env/bin/activate
 pip install -r requirements
 bash pipeline.sh <ABS_SUBJECT_DIR> <SUBJECT_NAME> <OUTDIR>
+
+yarn install
+yarn dev run &
+python3 convert.py <PDF_REPORT_SAVEPATH>
 ```
 
+or use container from dockerhub. in this case you dont need python env to pdfy report
+```bash
+docker run \
+    -v <ABS_SUBJECT_DIR>/<SUBJECT_NAME>:/root/data \
+    -v <ABS_OUTDIR>:/root/out \
+    -it --rm neurographx-mri-pages-vis:latest /root/data <SUBJECT_NAME> /root/out
+
+python3 -m venv .env
+source .env/bin/activate
+pip install -r requirements
+yarn install
+yarn dev run &
+python3 convert.py <PDF_REPORT_SAVEPATH>
+```
 (!) `SUBJECTS_DIR` should be set to dir with fs-subjects
+
+Your output directory will look like this:
+```
+<OUTDIR>/
+├── aseg_aparc_output/
+│   ├── aparc_lh_volume.csv
+│   ├── aparc_rh_volume.csv
+│   └── aseg_volume.csv
+├── report_gen_output/
+│   └── index.html
+└── volumes_json_output/
+    └── data.json
+```
 # Details
 
-## Parsing and analysis with Docker
+## Manual parsing and analysis
 
 To parse FreeSurfer subjects (`<subj>/stats` dir is sufficient) using `asegstats2table` and `aparcstats2table`, one can use provided FreeSurfer python scripts. To access these commands, do:
 
 ```bash
 
-$> pysurfer/asegstats2table.py ...
-$> pysurfer/aparcstats2table.py ...
-$> exit
+$ pysurfer/asegstats2table.py ...
+$ pysurfer/aparcstats2table.py ...
 
-python3 analyze_dir.py <SUBJECTS_DIR> <anydest>
+$ python3 analyze_dir.py <SUBJECTS_DIR> <anydest>
 ```
 
 <details>
