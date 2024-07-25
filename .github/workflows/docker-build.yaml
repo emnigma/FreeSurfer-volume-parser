@@ -1,4 +1,4 @@
-name: 'Build and publish image'
+name: 'Build, test and publish image'
 
 on:
   push:
@@ -8,11 +8,12 @@ on:
     tags:
       - v*
 env:
+  TEST_TAG: emnigma/app:test
   DOCKER_IMAGE_NAME: ${{ vars.DOCKER_IMAGE_NAME }}
 
 jobs:
   release:
-    name: 'Build image'
+    name: 'Full dev pipeline CI run'
     runs-on: ubuntu-latest
     outputs:
       dockertag: ${{ steps.set_output.outputs.dockertag }}
@@ -46,6 +47,45 @@ jobs:
       - name: 'Set Docker tag output'
         id: set_output
         run: echo "dockertag=${{ steps.meta.outputs.tags }}" >> $GITHUB_ENV
+      
+      - name: Build and export to Docker
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./Dockerfile
+          load: true
+          tags: ${{ env.TEST_TAG }}
+      
+      - name: 'Test image'
+        run: |
+          docker run -rm \
+            -v ${{ env.WORKFLOWS_DIR }}/example_subjects:/root/data \
+            -v ${{ env.OUTPUT_DIR }}:/root/out \
+            ci-image /root/data subj1 /root/out
+
+      - name: 'Upload report.pdf artifact'
+        uses: actions/upload-artifact@v4
+        with:
+          name: patient_pdf
+          path: ${{ env.OUTPUT_DIR }}/report_gen_output/report.pdf
+          retention-days: 1
+    
+      - name: 'Convert JSON to Markdown'
+        run: >
+          python ${{ env.WORKFLOWS_DIR }}/json_to_md.py
+          --json ${{ env.OUTPUT_DIR }}/volumes_json_output/data.json
+          --md volumes.md
+  
+      - name: 'Display CI Summary'
+        run: |
+          echo "Volumes Summary"
+          cat volumes.md
+        continue-on-error: true
+  
+      - name: 'Create GitHub Actions Summary'
+        run: |
+          echo "## Volumes Summary" >> $GITHUB_STEP_SUMMARY
+          cat volumes.md >> $GITHUB_STEP_SUMMARY
 
       - name: 'Build and push Docker image'
         uses: docker/build-push-action@v5
