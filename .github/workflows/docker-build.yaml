@@ -18,10 +18,11 @@ jobs:
     outputs:
       dockertag: ${{ steps.set_output.outputs.dockertag }}
     steps:
-      - name: Setup environment variables
+      - name: 'Setup environment variables and make out dir'
         run: |
           echo "WORKFLOWS_DIR=${{ github.workspace }}/.github/workflows/" >> $GITHUB_ENV
           echo "OUTPUT_DIR=out" >> $GITHUB_ENV
+          mkdir out
 
       - name: 'Debug'
         run: |
@@ -32,12 +33,12 @@ jobs:
         with:
           persist-credentials: false
           fetch-depth: 0
-      
+
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
           cache: 'pip'
-      
+
       - name: 'Install requirements.txt'
         run:
           python3 -m pip install pandas
@@ -61,7 +62,7 @@ jobs:
       - name: 'Set Docker tag output'
         id: set_output
         run: echo "dockertag=${{ steps.meta.outputs.tags }}" >> $GITHUB_ENV
-      
+
       - name: Build and export to Docker
         uses: docker/build-push-action@v6
         with:
@@ -69,15 +70,15 @@ jobs:
           file: ./Dockerfile
           load: true
           tags: ${{ env.TEST_TAG }}
-      
+
       - name: 'Test image'
         run:
           docker run --rm -v ${{ env.WORKFLOWS_DIR }}/example_subjects:/root/data -v ${{ env.OUTPUT_DIR }}:/root/out \${{ env.TEST_TAG }} /root/data subj1 /root/out
-      
+
       - name: 'DEBUG'
         run:
           ls -lR ${{ env.OUTPUT_DIR }}
-        
+
       - name: 'Convert index.html to .pdf'
         run: |
           cp ${{ env.OUTPUT_DIR }}/report_gen_output/index.html index.html
@@ -91,19 +92,19 @@ jobs:
           name: patient_pdf
           path: ${{ env.OUTPUT_DIR }}/report_gen_output/report.pdf
           retention-days: 1
-    
+
       - name: 'Convert JSON to Markdown'
         run: |
           python3 ${{ env.WORKFLOWS_DIR }}/json_to_md.py \
             --json ${{ env.OUTPUT_DIR }}/volumes_json_output/data.json \
             --md volumes.md
-  
+
       - name: 'Display CI Summary'
         run: |
           echo "Volumes Summary"
           cat volumes.md
         continue-on-error: true
-  
+
       - name: 'Create GitHub Actions Summary'
         run: |
           echo "## Volumes Summary" >> $GITHUB_STEP_SUMMARY
