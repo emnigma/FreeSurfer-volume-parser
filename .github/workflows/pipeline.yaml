@@ -39,7 +39,7 @@ jobs:
           docker run \
             -v ${{ env.WORKFLOWS_DIR }}/example_subjects:/root/data \
             -v ${{ env.OUTPUT_DIR }}:/root/out \
-            -it --rm ci-image /root/data subj1 /root/out
+            --rm ci-image /root/data subj1 /root/out
           --name ci-container ci-image \
       
       - name: Upload report.pdf artifact
