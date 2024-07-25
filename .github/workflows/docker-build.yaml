@@ -77,7 +77,6 @@ jobs:
       - name: 'Test image'
         run: |
           docker run --rm \
-            --user $(id -u):$(id -g) \
             -v ${{ env.WORKFLOWS_DIR }}/example_subjects:/root/data \
             -v ${{ env.OUTPUT_DIR }}:/root/out \
             ${{ env.TEST_TAG }} /root/data subj1 /root/out
@@ -89,11 +88,8 @@ jobs:
           yarn run dev &
 
       - name: 'Convert index.html to .pdf'
-        run: |
-          pwd
-          ls -l convert.py
-          ls -l ${{ env.OUTPUT_DIR }}/report_gen_output
-          python3 convert.py ${{ env.OUTPUT_DIR }}/report_gen_output
+        run:
+          sudo python3 convert.py ${{ env.OUTPUT_DIR }}/report_gen_output
 
       - name: 'Upload report.pdf artifact'
         uses: actions/upload-artifact@v4
