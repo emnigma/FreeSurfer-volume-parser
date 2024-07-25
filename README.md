@@ -2,6 +2,7 @@
 
 ## Running pipeline
 
+#### Run pipeline manually
 Run the following command:
 ```bash
 python3 -m venv .env
@@ -14,7 +15,8 @@ yarn dev run &
 python3 convert.py <PDF_REPORT_SAVEPATH>
 ```
 
-or use container from dockerhub. in this case you dont need python env to pdfy report
+#### Run pipeline using docker
+or use container from dockerhub. in this case you dont need python env to generate `index.html`
 ```bash
 docker run \
     -v <ABS_SUBJECT_DIR>/<SUBJECT_NAME>:/root/data \
