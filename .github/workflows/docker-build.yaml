@@ -77,7 +77,7 @@ jobs:
 
       - name: 'DEBUG'
         run:
-          ls -lR ${{ env.OUTPUT_DIR }}
+          ls -lR
 
       - name: 'Convert index.html to .pdf'
         run: |
