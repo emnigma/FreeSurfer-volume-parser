@@ -61,7 +61,7 @@ jobs:
           docker run --rm \
             -v ${{ env.WORKFLOWS_DIR }}/example_subjects:/root/data \
             -v ${{ env.OUTPUT_DIR }}:/root/out \
-            ci-image /root/data subj1 /root/out
+            ${{ env.TEST_TAG }} /root/data subj1 /root/out
 
       - name: 'Upload report.pdf artifact'
         uses: actions/upload-artifact@v4
