@@ -89,13 +89,13 @@ jobs:
 
       - name: 'Convert index.html to .pdf'
         run:
-          sudo python3 convert.py ${{ env.OUTPUT_DIR }}/report_gen_output
+          python3 convert.py ./
 
       - name: 'Upload report.pdf artifact'
         uses: actions/upload-artifact@v4
         with:
           name: patient_pdf
-          path: ${{ env.OUTPUT_DIR }}/report_gen_output/report.pdf
+          path: report.pdf
           retention-days: 1
 
       - name: 'Convert JSON to Markdown'
