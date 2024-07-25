@@ -58,7 +58,7 @@ jobs:
       
       - name: 'Test image'
         run: |
-          docker run -rm \
+          docker run --rm \
             -v ${{ env.WORKFLOWS_DIR }}/example_subjects:/root/data \
             -v ${{ env.OUTPUT_DIR }}:/root/out \
             ci-image /root/data subj1 /root/out
