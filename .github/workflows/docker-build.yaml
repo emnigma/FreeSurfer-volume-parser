@@ -32,6 +32,11 @@ jobs:
         with:
           persist-credentials: false
           fetch-depth: 0
+      
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
 
       - name: 'Log in to Docker Hub'
         uses: docker/login-action@v3
@@ -73,10 +78,12 @@ jobs:
           retention-days: 1
     
       - name: 'Convert JSON to Markdown'
-        run: >
-          python ${{ env.WORKFLOWS_DIR }}/json_to_md.py
-          --json ${{ env.OUTPUT_DIR }}/volumes_json_output/data.json
-          --md volumes.md
+        run: |
+          python3 -m pip install pandas
+
+          python3 ${{ env.WORKFLOWS_DIR }}/json_to_md.py \
+            --json ${{ env.OUTPUT_DIR }}/volumes_json_output/data.json \
+            --md volumes.md
   
       - name: 'Display CI Summary'
         run: |
