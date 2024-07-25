@@ -73,7 +73,8 @@ jobs:
           docker run --rm \
             -v ${{ env.WORKFLOWS_DIR }}/example_subjects:/root/data \
             -v ${{ env.OUTPUT_DIR }}:/root/out \
-            ${{ env.TEST_TAG }} /root/data subj1 /root/out
+            -v ${{ env.WORKFLOWS_DIR }}/example_subjects/subj1/metadata.json:/root/data/metadata.json \
+            ${{ env.TEST_TAG }} /root/data subj1 /root/data/metadata.json /root/out
 
       - name: 'Run node server'
         run: |

@@ -1,7 +1,12 @@
 export SUBJECTS_DIR=$1
 
 SUBJECT_NAME=$2
-OUTDIR=$3
+
+# .json file
+SUBJECT_METADATA=$3
+
+# path to output dir
+OUTDIR=$4
 
 mkdir $OUTDIR
 
@@ -16,10 +21,11 @@ python3 pysurfer/aparcstats2table.py --subjects $SUBJECT_NAME --hemi lh --meas v
 python3 pysurfer/aparcstats2table.py --subjects $SUBJECT_NAME --hemi rh --meas volume --tablefile $ASEG_APARC_OUTPUT/aparc_rh_volume.csv
 
 mkdir $VOLUMES_JSON_OUTPUT
-python3 pipeline.py calculate_volumes \
+python3 pipeline.py create_patient_data \
         --aseg $ASEG_APARC_OUTPUT/aseg_volume.csv \
         --aparc_lh $ASEG_APARC_OUTPUT/aparc_lh_volume.csv \
         --aparc_rh $ASEG_APARC_OUTPUT/aparc_rh_volume.csv \
+        --metadata $SUBJECT_METADATA \
         --output-json $VOLUMES_JSON_OUTPUT/data.json 
 
 mkdir $REPORT_GEN_OUTPUT

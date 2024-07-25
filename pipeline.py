@@ -1,13 +1,14 @@
 import argparse
 import json
-from dataclasses import dataclass
+from dataclasses import asdict, dataclass
 from typing import List, Optional
 
 import pandas as pd
+from dacite import from_dict
 from jinja2 import Environment, FileSystemLoader
 
 
-def calculate_volumes(aseg_file, aparc_lh_file, aparc_rh_file):
+def calculate_volumes(aseg_file, aparc_lh_file, aparc_rh_file) -> list["RegionVolume"]:
     # Load data from CSV files
     aseg_df = pd.read_csv(aseg_file, sep="\t")
     aparc_lh_df = pd.read_csv(aparc_lh_file, sep="\t")
@@ -68,34 +69,15 @@ def calculate_volumes(aseg_file, aparc_lh_file, aparc_rh_file):
     occipital_volume = sum_regions(aparc_lh_df, aparc_rh_df, occipital_regions) / 1000
     parietal_volume = sum_regions(aparc_lh_df, aparc_rh_df, parietal_regions) / 1000
 
-    # Create the output dictionary
-    volumes = [
-        {"name": "Hippocampi", "volume": hippocampi_volume},
-        {"name": "Frontal Lobe", "volume": frontal_volume},
-        {"name": "Temporal Lobe", "volume": temporal_volume},
-        {"name": "Parietal Lobe", "volume": parietal_volume},
-        {"name": "Occipital Lobe", "volume": occipital_volume},
+    regions = [
+        RegionVolume("Hippocampi", hippocampi_volume),
+        RegionVolume("Frontal Lobe", frontal_volume),
+        RegionVolume("Temporal Lobe", temporal_volume),
+        RegionVolume("Parietal Lobe", parietal_volume),
+        RegionVolume("Occipital Lobe", occipital_volume),
     ]
 
-    mock_patient_data = {
-        "patient_id": "123456",
-        "report_date": "January 1, 2023",
-        "patient_info": {
-            "name": "John Doe",
-            "age": 45,
-            "gender": "Male",
-            "referring_physician": "Dr. Jane Smith",
-        },
-        "imaging_details": {
-            "scan_type": "MRI",
-            "scan_date": "December 31, 2022",
-            "scanning_facility": "iCObrain-DM Imaging Center",
-        },
-        "regions": volumes,
-        "prepared_by": "Dr. Jane Smith",
-    }
-
-    return mock_patient_data
+    return regions
 
 
 @dataclass
@@ -114,6 +96,12 @@ class ImagingDetails:
 
 
 @dataclass
+class RegionVolume:
+    name: str
+    volume: Optional[float] = None
+
+
+@dataclass
 class Region:
     name: str
     volume: Optional[float] = None
@@ -127,8 +115,8 @@ class PatientReport:
     report_date: str
     patient_info: PatientInfo
     imaging_details: ImagingDetails
-    regions: List[Region]
     prepared_by: str
+    regions: List[Region] = None
 
 
 @dataclass
@@ -136,28 +124,22 @@ class NormalRange:
     regions: List[Region]
 
 
-@dataclass
-class MergedReport:
-    patient_id: str
-    report_date: str
-    patient_info: PatientInfo
-    imaging_details: ImagingDetails
-    regions: List[Region]
-    prepared_by: str
+def create_patient_json(
+    aseg_file: str,
+    aparc_lh_file: str,
+    aparc_rh_file: str,
+    patient_report_json_file: str,
+) -> PatientReport:
+    with open(patient_report_json_file, "r") as f:
+        patient_report = from_dict(PatientReport, json.loads(f.read()))
+
+    patient_report.regions = calculate_volumes(aseg_file, aparc_lh_file, aparc_rh_file)
+
+    return patient_report
 
 
 def load_patient_report(data: dict) -> PatientReport:
-    patient_info = PatientInfo(**data["patient_info"])
-    imaging_details = ImagingDetails(**data["imaging_details"])
-    regions = [Region(name=r["name"], volume=r["volume"]) for r in data["regions"]]
-    return PatientReport(
-        patient_id=data["patient_id"],
-        report_date=data["report_date"],
-        patient_info=patient_info,
-        imaging_details=imaging_details,
-        regions=regions,
-        prepared_by=data["prepared_by"],
-    )
+    return from_dict(PatientReport, data)
 
 
 def load_normal_range(data: dict) -> NormalRange:
@@ -174,7 +156,7 @@ def load_normal_range(data: dict) -> NormalRange:
 
 def merge_reports(
     patient_report: PatientReport, normal_range: NormalRange
-) -> MergedReport:
+) -> PatientReport:
     merged_regions = []
     for pr in patient_report.regions:
         for nr in normal_range.regions:
@@ -188,25 +170,18 @@ def merge_reports(
                     )
                 )
                 break
-    return MergedReport(
-        patient_id=patient_report.patient_id,
-        report_date=patient_report.report_date,
-        patient_info=patient_report.patient_info,
-        imaging_details=patient_report.imaging_details,
-        regions=merged_regions,
-        prepared_by=patient_report.prepared_by,
-    )
+    patient_report.regions = merged_regions
+    return patient_report
 
 
 def generate_html(patient_data_file, reference_data_file, template_dir, output_file):
-    # Load data
     with open(patient_data_file) as f:
-        patient_data = json.load(f)
+        patient_data = json.loads(f.read())
 
     with open(reference_data_file) as f:
-        reference_data = json.load(f)
+        reference_data = json.loads(f.read())
 
-    patient_report = load_patient_report(patient_data)
+    patient_report = from_dict(PatientReport, patient_data)
     normal_range = load_normal_range(reference_data)
     merged_report = merge_reports(patient_report, normal_range)
 
@@ -227,7 +202,8 @@ def main():
 
     # Parser for volume calculation
     volume_parser = subparsers.add_parser(
-        "calculate_volumes", help="Calculate brain region volumes."
+        "create_patient_data",
+        help="Calculate brain region volumes and merge it with patient metadata.",
     )
     volume_parser.add_argument(
         "--aseg", required=True, help="Path to the aseg_volume.csv file"
@@ -237,6 +213,11 @@ def main():
     )
     volume_parser.add_argument(
         "--aparc_rh", required=True, help="Path to the aparc_rh_volume.csv file"
+    )
+    volume_parser.add_argument(
+        "--metadata",
+        required=True,
+        help="Path to .json with patient metadata (see `PatientInfo`)",
     )
     volume_parser.add_argument(
         "--output-json", required=True, help="Path to the output JSON file"
@@ -265,10 +246,12 @@ def main():
 
     args = parser.parse_args()
 
-    if args.command == "calculate_volumes":
-        volumes = calculate_volumes(args.aseg, args.aparc_lh, args.aparc_rh)
+    if args.command == "create_patient_data":
+        patient_report = create_patient_json(
+            args.aseg, args.aparc_lh, args.aparc_rh, args.metadata
+        )
         with open(args.output_json, "w") as f:
-            json.dump(volumes, f, indent=4)
+            json.dump(asdict(patient_report), f, indent=4)
     elif args.command == "generate_html":
         generate_html(
             args.data_file,

@@ -7,7 +7,7 @@ Run the following command:
 python3 -m venv .env
 source .env/bin/activate
 pip install -r requirements
-bash pipeline.sh <ABS_SUBJECT_DIR> <SUBJECT_NAME> <OUTDIR>
+bash pipeline.sh <ABS_SUBJECT_DIR> <SUBJECT_NAME> <JSON_METADATA> <OUTDIR>
 
 yarn install
 yarn dev run &
@@ -19,7 +19,8 @@ or use container from dockerhub. in this case you dont need python env to pdfy r
 docker run \
     -v <ABS_SUBJECT_DIR>/<SUBJECT_NAME>:/root/data \
     -v <ABS_OUTDIR>:/root/out \
-    -it --rm neurographx-mri-pages-vis:latest /root/data <SUBJECT_NAME> /root/out
+    -v <JSON_METADATA>:/root/data/metadata.json \
+    -it --rm neurographx-mri-pages-vis:latest /root/data <SUBJECT_NAME> /root/data/metadata.json /root/out
 
 python3 -m venv .env
 source .env/bin/activate
