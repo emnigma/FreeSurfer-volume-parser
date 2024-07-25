@@ -18,6 +18,11 @@ jobs:
     outputs:
       dockertag: ${{ steps.set_output.outputs.dockertag }}
     steps:
+      - name: Setup environment variables
+        run: |
+          echo "WORKFLOWS_DIR=${{ github.workspace }}/.github/workflows/" >> $GITHUB_ENV
+          echo "OUTPUT_DIR=out" >> $GITHUB_ENV
+
       - name: 'Debug'
         run: |
           printenv
@@ -57,11 +62,8 @@ jobs:
           tags: ${{ env.TEST_TAG }}
       
       - name: 'Test image'
-        run: |
-          docker run --rm \
-            -v ${{ env.WORKFLOWS_DIR }}/example_subjects:/root/data \
-            -v ${{ env.OUTPUT_DIR }}:/root/out \
-            ${{ env.TEST_TAG }} /root/data subj1 /root/out
+        run:
+          docker run --rm -v ${{ env.WORKFLOWS_DIR }}/example_subjects:/root/data -v ${{ env.OUTPUT_DIR }}:/root/out \${{ env.TEST_TAG }} /root/data subj1 /root/out
 
       - name: 'Upload report.pdf artifact'
         uses: actions/upload-artifact@v4
