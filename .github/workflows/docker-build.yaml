@@ -24,7 +24,9 @@ jobs:
           echo "OUTPUT_DIR=${{ github.workspace }}/out" >> $GITHUB_ENV
       
       - name: 'Make output dir'
-        run: mkdir ${{ env.OUTPUT_DIR }}
+        run: |
+          mkdir ${{ env.OUTPUT_DIR }}
+          chmod 777 ${{ env.OUTPUT_DIR }}
 
       - name: 'Debug'
         run: |
