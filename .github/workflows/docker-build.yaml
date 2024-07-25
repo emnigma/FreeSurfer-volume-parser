@@ -22,7 +22,7 @@ jobs:
         run: |
           echo "WORKFLOWS_DIR=${{ github.workspace }}/.github/workflows" >> $GITHUB_ENV
           echo "OUTPUT_DIR=${{ github.workspace }}/out" >> $GITHUB_ENV
-          mkdir out
+          mkdir $OUTPUT_DIR
 
       - name: 'Debug'
         run: |
