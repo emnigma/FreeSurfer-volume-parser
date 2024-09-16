@@ -58,7 +58,7 @@ $ python3 analyze_dir.py <SUBJECTS_DIR> <anydest>
 ```
 
 <details>
-   <summary>Auto parse subject by id</summary>
+   <summary>More in-depth scritp to parse subject by id</summary>
 
    ```bash
    subject_id=$1
