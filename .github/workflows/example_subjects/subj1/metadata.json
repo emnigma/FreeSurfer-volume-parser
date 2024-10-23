@@ -3,14 +3,14 @@
     "report_date": "January 1, 2023",
     "patient_info": {
         "name": "Jane Doe",
-        "age": 49,
+        "age": 21,
         "gender": "female",
         "referring_physician": "Doctor Schnoidberg"
     },
     "imaging_details": {
         "scan_type": "MRI",
         "scan_date": "December 31, 2022",
-        "scanning_facility": "iCObrain-DM Imaging Center"
+        "scanning_facility": "Some Imaging Center"
     },
     "prepared_by": "Dr. Jane Smith"
 }

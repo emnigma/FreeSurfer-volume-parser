@@ -11,7 +11,7 @@ env:
 jobs:
   release:
     name: 'Release'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     env:
       GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
     defaults:

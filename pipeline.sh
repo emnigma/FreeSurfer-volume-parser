@@ -32,6 +32,6 @@ mkdir $REPORT_GEN_OUTPUT
 
 python3 pipeline.py generate_html \
         --data-file $VOLUMES_JSON_OUTPUT/data.json \
-        --reference-data-file resources/reference_data.json \
+        --reference-data-file resources/reference_thickness.json \
         --template-dir resources/templates \
         --output-file $REPORT_GEN_OUTPUT/index.html

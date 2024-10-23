@@ -1,0 +1,386 @@
+{
+    "18-30": {
+        "min_age": 18,
+        "max_age": 30,
+        "female": {
+            "Subject count": 58,
+            "regions": {
+                "Hippocampi": {
+                    "min": 7.4457,
+                    "av": 8.606912068965517,
+                    "max": 10.055
+                },
+                "Frontal Lobe": {
+                    "min": 106.363,
+                    "av": 168.82756896551723,
+                    "max": 199.411
+                },
+                "Temporal Lobe": {
+                    "min": 74.451,
+                    "av": 107.61946551724138,
+                    "max": 133.378
+                },
+                "Parietal Lobe": {
+                    "min": 67.99,
+                    "av": 106.37891379310345,
+                    "max": 135.647
+                },
+                "Occipital Lobe": {
+                    "min": 27.953,
+                    "av": 45.36091379310345,
+                    "max": 59.503
+                }
+            }
+        },
+        "male": {
+            "Subject count": 30,
+            "regions": {
+                "Hippocampi": {
+                    "min": 7.7008,
+                    "av": 9.663323333333333,
+                    "max": 11.7698
+                },
+                "Frontal Lobe": {
+                    "min": 155.834,
+                    "av": 187.92096666666666,
+                    "max": 231.098
+                },
+                "Temporal Lobe": {
+                    "min": 103.315,
+                    "av": 122.72196666666667,
+                    "max": 147.493
+                },
+                "Parietal Lobe": {
+                    "min": 101.866,
+                    "av": 120.74136666666666,
+                    "max": 152.612
+                },
+                "Occipital Lobe": {
+                    "min": 41.753,
+                    "av": 53.11683333333334,
+                    "max": 62.603
+                }
+            }
+        }
+    },
+    "31-40": {
+        "min_age": 31,
+        "max_age": 40,
+        "female": {
+            "Subject count": 10,
+            "regions": {
+                "Hippocampi": {
+                    "min": 6.722299999999999,
+                    "av": 8.65468,
+                    "max": 10.764299999999999
+                },
+                "Frontal Lobe": {
+                    "min": 138.293,
+                    "av": 152.5147,
+                    "max": 168.832
+                },
+                "Temporal Lobe": {
+                    "min": 84.37,
+                    "av": 97.8023,
+                    "max": 115.706
+                },
+                "Parietal Lobe": {
+                    "min": 65.614,
+                    "av": 96.2187,
+                    "max": 111.736
+                },
+                "Occipital Lobe": {
+                    "min": 30.648,
+                    "av": 40.3664,
+                    "max": 45.595
+                }
+            }
+        },
+        "male": {
+            "Subject count": 8,
+            "regions": {
+                "Hippocampi": {
+                    "min": 9.116200000000001,
+                    "av": 9.7946125,
+                    "max": 11.3057
+                },
+                "Frontal Lobe": {
+                    "min": 146.764,
+                    "av": 180.404625,
+                    "max": 203.038
+                },
+                "Temporal Lobe": {
+                    "min": 105.716,
+                    "av": 118.473125,
+                    "max": 127.307
+                },
+                "Parietal Lobe": {
+                    "min": 95.642,
+                    "av": 114.9415,
+                    "max": 131.972
+                },
+                "Occipital Lobe": {
+                    "min": 46.721,
+                    "av": 53.288624999999996,
+                    "max": 62.038
+                }
+            }
+        }
+    },
+    "41-50": {
+        "min_age": 41,
+        "max_age": 50,
+        "female": {
+            "Subject count": 3,
+            "regions": {
+                "Hippocampi": {
+                    "min": 8.2985,
+                    "av": 8.631266666666667,
+                    "max": 8.851299999999998
+                },
+                "Frontal Lobe": {
+                    "min": 128.826,
+                    "av": 151.83399999999997,
+                    "max": 165.908
+                },
+                "Temporal Lobe": {
+                    "min": 79.108,
+                    "av": 95.07833333333333,
+                    "max": 103.577
+                },
+                "Parietal Lobe": {
+                    "min": 89.736,
+                    "av": 99.472,
+                    "max": 108.957
+                },
+                "Occipital Lobe": {
+                    "min": 40.661,
+                    "av": 43.074000000000005,
+                    "max": 45.552
+                }
+            }
+        },
+        "male": {
+            "Subject count": 1,
+            "regions": {
+                "Hippocampi": {
+                    "min": 9.945099999999998,
+                    "av": 9.945099999999998,
+                    "max": 9.945099999999998
+                },
+                "Frontal Lobe": {
+                    "min": 171.458,
+                    "av": 171.458,
+                    "max": 171.458
+                },
+                "Temporal Lobe": {
+                    "min": 115.599,
+                    "av": 115.599,
+                    "max": 115.599
+                },
+                "Parietal Lobe": {
+                    "min": 113.515,
+                    "av": 113.515,
+                    "max": 113.515
+                },
+                "Occipital Lobe": {
+                    "min": 57.513,
+                    "av": 57.513,
+                    "max": 57.513
+                }
+            }
+        }
+    },
+    "51-60": {
+        "min_age": 51,
+        "max_age": 60,
+        "female": {
+            "Subject count": 1,
+            "regions": {
+                "Hippocampi": {
+                    "min": 8.3018,
+                    "av": 8.3018,
+                    "max": 8.3018
+                },
+                "Frontal Lobe": {
+                    "min": 142.138,
+                    "av": 142.138,
+                    "max": 142.138
+                },
+                "Temporal Lobe": {
+                    "min": 91.775,
+                    "av": 91.775,
+                    "max": 91.775
+                },
+                "Parietal Lobe": {
+                    "min": 88.965,
+                    "av": 88.965,
+                    "max": 88.965
+                },
+                "Occipital Lobe": {
+                    "min": 43.55,
+                    "av": 43.55,
+                    "max": 43.55
+                }
+            }
+        },
+        "male": {
+            "Subject count": 2,
+            "regions": {
+                "Hippocampi": {
+                    "min": 9.052700000000002,
+                    "av": 9.3523,
+                    "max": 9.6519
+                },
+                "Frontal Lobe": {
+                    "min": 172.186,
+                    "av": 181.6335,
+                    "max": 191.081
+                },
+                "Temporal Lobe": {
+                    "min": 111.09,
+                    "av": 114.3905,
+                    "max": 117.691
+                },
+                "Parietal Lobe": {
+                    "min": 104.512,
+                    "av": 108.7505,
+                    "max": 112.989
+                },
+                "Occipital Lobe": {
+                    "min": 51.329,
+                    "av": 52.286500000000004,
+                    "max": 53.244
+                }
+            }
+        }
+    },
+    "61-70": {
+        "min_age": 61,
+        "max_age": 70,
+        "female": {
+            "Subject count": 5,
+            "regions": {
+                "Hippocampi": {
+                    "min": 8.319599999999998,
+                    "av": 8.870239999999999,
+                    "max": 9.283100000000001
+                },
+                "Frontal Lobe": {
+                    "min": 108.631,
+                    "av": 149.1996,
+                    "max": 170.83
+                },
+                "Temporal Lobe": {
+                    "min": 81.014,
+                    "av": 97.00019999999999,
+                    "max": 104.229
+                },
+                "Parietal Lobe": {
+                    "min": 57.355,
+                    "av": 93.5004,
+                    "max": 106.681
+                },
+                "Occipital Lobe": {
+                    "min": 27.724,
+                    "av": 38.87179999999999,
+                    "max": 45.146
+                }
+            }
+        },
+        "male": {
+            "Subject count": 1,
+            "regions": {
+                "Hippocampi": {
+                    "min": 7.4704,
+                    "av": 7.4704,
+                    "max": 7.4704
+                },
+                "Frontal Lobe": {
+                    "min": 121.637,
+                    "av": 121.637,
+                    "max": 121.637
+                },
+                "Temporal Lobe": {
+                    "min": 87.043,
+                    "av": 87.043,
+                    "max": 87.043
+                },
+                "Parietal Lobe": {
+                    "min": 81.715,
+                    "av": 81.715,
+                    "max": 81.715
+                },
+                "Occipital Lobe": {
+                    "min": 32.318,
+                    "av": 32.318,
+                    "max": 32.318
+                }
+            }
+        }
+    },
+    "70+": {
+        "min_age": 71,
+        "max_age": 100,
+        "female": {
+            "Subject count": 1,
+            "regions": {
+                "Hippocampi": {
+                    "min": 7.600899999999999,
+                    "av": 7.600899999999999,
+                    "max": 7.600899999999999
+                },
+                "Frontal Lobe": {
+                    "min": 128.398,
+                    "av": 128.398,
+                    "max": 128.398
+                },
+                "Temporal Lobe": {
+                    "min": 84.626,
+                    "av": 84.626,
+                    "max": 84.626
+                },
+                "Parietal Lobe": {
+                    "min": 87.569,
+                    "av": 87.569,
+                    "max": 87.569
+                },
+                "Occipital Lobe": {
+                    "min": 36.086,
+                    "av": 36.086,
+                    "max": 36.086
+                }
+            }
+        },
+        "male": {
+            "Subject count": 1,
+            "regions": {
+                "Hippocampi": {
+                    "min": 9.1421,
+                    "av": 9.1421,
+                    "max": 9.1421
+                },
+                "Frontal Lobe": {
+                    "min": 160.333,
+                    "av": 160.333,
+                    "max": 160.333
+                },
+                "Temporal Lobe": {
+                    "min": 113.369,
+                    "av": 113.369,
+                    "max": 113.369
+                },
+                "Parietal Lobe": {
+                    "min": 106.912,
+                    "av": 106.912,
+                    "max": 106.912
+                },
+                "Occipital Lobe": {
+                    "min": 46.993,
+                    "av": 46.993,
+                    "max": 46.993
+                }
+            }
+        }
+    }
+}
