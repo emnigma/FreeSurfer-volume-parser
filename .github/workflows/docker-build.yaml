@@ -14,7 +14,7 @@ env:
 jobs:
   release:
     name: 'Full dev pipeline CI run'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu:20.04
     steps:
       - name: 'Setup environment variables and make out dir'
         run: |

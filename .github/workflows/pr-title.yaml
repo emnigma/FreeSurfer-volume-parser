@@ -12,7 +12,7 @@ permissions: write-all
 jobs:
   pr-title:
     name: 'Title'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu:20.04
     defaults:
       run:
         shell: bash
