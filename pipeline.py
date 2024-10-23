@@ -83,7 +83,7 @@ def calculate_volumes(aseg_file, aparc_lh_file, aparc_rh_file) -> list["RegionVo
 @dataclass
 class PatientInfo:
     name: str
-    age: int
+    age: float
     gender: str
     referring_physician: str
 
@@ -142,14 +142,18 @@ def load_patient_report(data: dict) -> PatientReport:
     return from_dict(PatientReport, data)
 
 
-def load_normal_range(data: dict) -> NormalRange:
+def load_normal_range(data: dict, gender: str, age: float) -> NormalRange:
+    region_data = None
+    for _, v in data.items():
+        if v["min_age"] < age < v["max_age"]:
+            region_data = v[gender]["regions"]
     regions = [
         Region(
-            name=r["name"],
-            normal_range_min=r["normal_range_min"],
-            normal_range_max=r["normal_range_max"],
+            name=name,
+            normal_range_min=reg_stats["min"],
+            normal_range_max=reg_stats["max"],
         )
-        for r in data["regions"]
+        for name, reg_stats in region_data.items()
     ]
     return NormalRange(regions=regions)
 
@@ -182,7 +186,11 @@ def generate_html(patient_data_file, reference_data_file, template_dir, output_f
         reference_data = json.loads(f.read())
 
     patient_report = from_dict(PatientReport, patient_data)
-    normal_range = load_normal_range(reference_data)
+    normal_range = load_normal_range(
+        reference_data,
+        gender=patient_report.patient_info.gender,
+        age=patient_report.patient_info.age,
+    )
     merged_report = merge_reports(patient_report, normal_range)
 
     env = Environment(loader=FileSystemLoader(template_dir))

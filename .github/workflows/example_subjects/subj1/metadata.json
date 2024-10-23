@@ -10,7 +10,7 @@
     "imaging_details": {
         "scan_type": "MRI",
         "scan_date": "December 31, 2022",
-        "scanning_facility": "iCObrain-DM Imaging Center"
+        "scanning_facility": "Some Imaging Center"
     },
     "prepared_by": "Dr. Jane Smith"
 }
