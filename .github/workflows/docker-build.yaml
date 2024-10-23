@@ -82,9 +82,9 @@ jobs:
           yarn install
           yarn run dev &
 
-      # - name: 'Convert index.html to .pdf'
-      #   run:
-      #     python3 convert.py report.pdf
+      - name: 'Convert index.html to .pdf'
+        run:
+          python3 convert.py report.pdf
 
       - name: 'Upload report.pdf artifact'
         uses: actions/upload-artifact@v4
