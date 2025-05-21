@@ -7,7 +7,7 @@ Run the following command:
 ```bash
 python3 -m venv .env
 source .env/bin/activate
-pip install -r requirements
+pip install -r requirements.txt
 bash pipeline.sh <ABS_SUBJECT_DIR> <SUBJECT_NAME> <JSON_METADATA> <OUTDIR>
 
 yarn install
@@ -26,7 +26,7 @@ docker run \
 
 python3 -m venv .env
 source .env/bin/activate
-pip install -r requirements
+pip install -r requirements.txt
 yarn install
 yarn dev run &
 python3 convert.py <PDF_REPORT_SAVEPATH>
