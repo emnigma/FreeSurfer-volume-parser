@@ -39,6 +39,7 @@ jobs:
       - name: 'Release'
         uses: cycjimmy/semantic-release-action@v4
         with:
-          semantic_version: 18.0.0
+          semantic_version: 23.0.0
           extra_plugins: |
             conventional-changelog-conventionalcommits@4.6.3
+            semantic-release-emoji
