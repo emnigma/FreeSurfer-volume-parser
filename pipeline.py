@@ -145,8 +145,12 @@ def load_patient_report(data: dict) -> PatientReport:
 def load_normal_range(data: dict, gender: str, age: float) -> NormalRange:
     region_data = None
     for _, v in data.items():
-        if v["min_age"] < age < v["max_age"]:
+        if v["min_age"] <= age <= v["max_age"]:
             region_data = v[gender]["regions"]
+
+    if region_data is None:
+        raise ValueError(f"No reference data found for age {age}")
+
     regions = [
         Region(
             name=name,
@@ -155,6 +159,7 @@ def load_normal_range(data: dict, gender: str, age: float) -> NormalRange:
         )
         for name, reg_stats in region_data.items()
     ]
+
     return NormalRange(regions=regions)
 
 
